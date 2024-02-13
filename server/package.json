@@ -4,7 +4,8 @@
   "description": "Server side for link sharing app ",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "start:prod": "SET NODE_ENV=production& nodemon server.js"
   },
   "author": "George",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.2",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.9",
     "validator": "^13.11.0"
   }
 }
