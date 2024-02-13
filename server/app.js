@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const AppError = require("./utils/appError");
 const userRouter = require("./routes/userRoutes");
+const linkRouter = require("./routes/linkRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 
 const app = express();
@@ -14,7 +15,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(cors());
 app.use(express.json());
 
-app.use("/devlinks-api/v1/users", userRouter);
+app.use("/devlinks-api/v1/users", userRouter, linkRouter);
+// app.use("/devlinks-api/v1/users", linkRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
