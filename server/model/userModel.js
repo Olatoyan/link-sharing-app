@@ -4,6 +4,23 @@ const validator = require("validator");
 const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    // required: [true, "Please enter your first name"],
+    minLength: 3,
+    maxLength: 20,
+    trim: true,
+    validate: [validator.isAlpha, "Name must only contain letters"],
+  },
+  lastName: {
+    type: String,
+    // required: [true, "Please enter your last name"],
+    minLength: 3,
+    maxLength: 20,
+    trim: true,
+    validate: [validator.isAlpha, "Name must only contain letters"],
+  },
+  photo: String,
   email: {
     type: String,
     required: [true, "Please enter your email address"],
