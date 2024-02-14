@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./authentication/Signup";
 import Login from "./authentication/Login";
+import ProfileLinksSection from "./features/links/ProfileLinksSection";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" index element={<Navigate replace to="login" />} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
+        <Route path="profile" element={<ProfileLinksSection />} />
       </Routes>
       <Toaster
         position="bottom-right"
