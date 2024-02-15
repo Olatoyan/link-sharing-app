@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(cors());
+app.options("*", cors());
 app.use(express.json());
 
 app.use("/devlinks-api/v1/users", userRouter, linkRouter);
