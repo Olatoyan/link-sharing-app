@@ -24,6 +24,9 @@ function App() {
           <Route path="/" index element={<Navigate replace to="signup" />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
+          <Route path="devlinks-api/v1/users">
+            <Route path="verify-email" element={<Signup />} />
+          </Route>
           <Route path="profile" element={<ProfileLinksSection />} />
         </Routes>
         <Toaster
