@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useLinks } from "../../contexts/LinksContext";
+import { getRightProfileUrl } from "../../utils/helper";
 
 function LinkPlatformItems({
   name,
@@ -8,6 +9,7 @@ function LinkPlatformItems({
   index,
   setLinks,
   setIsLinkBoxOpen,
+  setLinkUrl,
 }: {
   name: string;
   links: string;
@@ -15,6 +17,7 @@ function LinkPlatformItems({
   index: number;
   setLinks: React.Dispatch<React.SetStateAction<string>>;
   setIsLinkBoxOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setLinkUrl: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const { updateLink } = useLinks();
 
@@ -22,6 +25,7 @@ function LinkPlatformItems({
     setLinks(name);
     setIsLinkBoxOpen(false);
     updateLink(index, { name });
+    setLinkUrl(getRightProfileUrl(name)!);
   }
   return (
     <motion.div

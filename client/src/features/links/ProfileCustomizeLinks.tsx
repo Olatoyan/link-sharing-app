@@ -17,8 +17,9 @@ function ProfileCustomizeLinks() {
         world!
       </h3>
       <button
-        className="mb-[2.4rem] flex items-center justify-center gap-[0.8rem] rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-medium leading-[2.4rem] text-[#633cff]"
+        className="mb-[2.4rem] flex items-center justify-center gap-[0.8rem] rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-medium leading-[2.4rem] text-[#633cff] disabled:cursor-not-allowed disabled:border-[#ccc] disabled:bg-[#ccc] disabled:text-[#666]"
         onClick={() => addLink("Github", "")}
+        disabled={links.length === 5}
       >
         <HiOutlinePlus />
         <span>Add link</span>
@@ -33,7 +34,10 @@ function ProfileCustomizeLinks() {
         <EmptyLinksBox />
       )}
 
-      <button className="mt-auto self-end rounded-[0.8rem] bg-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-white">
+      <button
+        className={`mt-auto self-end rounded-[0.8rem] bg-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-white ${links.length === 0 ? "bg-opacity-25" : ""}`}
+        disabled={links.length === 0}
+      >
         Save
       </button>
     </div>

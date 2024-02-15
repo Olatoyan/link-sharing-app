@@ -21,64 +21,78 @@ import {
 import LinkPlatformItems from "./LinkPlatformItems";
 
 import { LinkProps, useLinks } from "../../contexts/LinksContext";
-import { getCorrespondingLogo } from "../../utils/helper";
+import { getCorrespondingLogo, getRightProfileUrl } from "../../utils/helper";
 
 const socialPlatforms = [
   {
     name: "Github",
     icon: <PiGithubLogoFill size={"1.6rem"} />,
+    url: "https://github.com/",
   },
   {
     name: "Dev.to",
     icon: <PiDevToLogoFill size={"1.6rem"} />,
+    url: "https://dev.to/",
   },
   {
     name: "Frontend Mentor",
     icon: <SiFrontendmentor size={"1.6rem"} />,
+    url: "https://www.frontendmentor.io/profile/",
   },
   {
     name: "Codewars",
     icon: <SiCodewars size={"1.6rem"} />,
+    url: "https://www.codewars.com/users/",
   },
   {
     name: "Gitlab",
     icon: <SiGitlab size={"1.6rem"} />,
+    url: "https://gitlab.com/",
   },
   {
     name: "Hashnode",
     icon: <SiHashnode size={"1.6rem"} />,
+    url: "https://hashnode.com/@",
   },
   {
     name: "Twitter",
     icon: <IoLogoTwitter size={"1.6rem"} />,
+    url: "https://twitter.com/",
   },
   {
     name: "LinkedIn",
     icon: <FaLinkedin size={"1.6rem"} />,
+    url: "https://www.linkedin.com/in/",
   },
   {
     name: "YouTube",
     icon: <FaYoutube size={"1.6rem"} />,
+    url: "https://www.youtube.com/@",
   },
   {
     name: "Facebook",
     icon: <FaFacebook size={"1.6rem"} />,
+    url: "https://www.facebook.com/",
   },
   {
     name: "Twitch",
     icon: <FaTwitch size={"1.6rem"} />,
+    url: "https://www.twitch.tv/",
   },
   {
     name: "Codepen",
     icon: <FaCodepen size={"1.6rem"} />,
+    url: "https://codepen.io/",
   },
   {
     name: "freeCodeCamp",
     icon: <FaFreeCodeCamp size={"1.6rem"} />,
+    url: "https://www.freecodecamp.org/",
   },
   {
     name: "StackOverflow",
     icon: <FaStackOverflow size={"1.6rem"} />,
+    url: "https://stackoverflow.com/users/",
   },
 ];
 
@@ -91,11 +105,12 @@ function LinkItems({
   number: number;
   index: number;
 }) {
-  const { updateLink } = useLinks();
-  console.log(link);
+  const { updateLink, deleteLink } = useLinks();
   const [links, setLinks] = useState("Github");
   const [isLinkBoxOpen, setIsLinkBoxOpen] = useState(false);
-  const [linkUrl, setLinkUrl] = useState(link.link);
+  const [linkUrl, setLinkUrl] = useState(getRightProfileUrl(links)!);
+
+  console.log(getRightProfileUrl(links));
 
   function handlePlatformChange(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -105,8 +120,13 @@ function LinkItems({
   }
 
   function handleUpdateLinkUrl(event: React.ChangeEvent<HTMLInputElement>) {
-    setLinkUrl(event.target.value);
-    updateLink(index, { link: event.target.value, name: links });
+    const value = event.target.value;
+    // Check if the new value is longer than the current value
+    // console.log(linkUrl.length);
+    if (value.length >= getRightProfileUrl(links)!.length) {
+      setLinkUrl(value);
+      updateLink(index, { link: value, name: links });
+    }
   }
 
   return (
@@ -115,7 +135,12 @@ function LinkItems({
         <h3 className="text-[1.6rem] font-bold leading-[2.4rem] text-[#737373]">
           Link #{number}
         </h3>
-        <p className="text-[1.6rem] leading-[2.4rem] text-[#737373]">Remove</p>
+        <p
+          className="cursor-pointer text-[1.6rem] leading-[2.4rem] text-[#737373]"
+          onClick={() => deleteLink(index)}
+        >
+          Remove
+        </p>
       </div>
 
       <form className="flex flex-col gap-[1.2rem] pt-[1.2rem]">
@@ -132,8 +157,8 @@ function LinkItems({
               className="flex w-full items-center gap-5 rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
               onClick={handlePlatformChange}
             >
-              {getCorrespondingLogo(links)}
-              <p>{links}</p>
+              {getCorrespondingLogo(link.name)}
+              <p>{link.name}</p>
               <img
                 src="./icon-chevron-down.svg"
                 alt="chevron down"
@@ -180,6 +205,7 @@ function LinkItems({
                         setLinks={setLinks}
                         setIsLinkBoxOpen={setIsLinkBoxOpen}
                         links={links}
+                        setLinkUrl={setLinkUrl}
                       />
                     ))}
                   </motion.div>

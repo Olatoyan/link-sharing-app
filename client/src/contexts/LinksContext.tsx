@@ -9,6 +9,7 @@ type LinksState = {
   links: LinkProps[];
   addLink: (name: string, link: string) => void;
   updateLink: (index: number, updatedFields: Partial<LinkProps>) => void;
+  deleteLink: (index: number) => void;
 };
 
 const LinksContext = createContext<LinksState | null>(null);
@@ -27,8 +28,12 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
       ),
     );
   }
+
+  function deleteLink(index: number) {
+    setLinks(links.filter((_, i) => i !== index));
+  }
   return (
-    <LinksContext.Provider value={{ links, addLink, updateLink }}>
+    <LinksContext.Provider value={{ links, addLink, updateLink, deleteLink }}>
       {children}
     </LinksContext.Provider>
   );
@@ -42,4 +47,5 @@ function useLinks() {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { LinksProvider, useLinks };
