@@ -1,4 +1,5 @@
-const BASE_URL = "https://toyan-link-sharing-app-api.vercel.app/api/v1/users";
+const BASE_URL =
+  "https://toyan-link-sharing-app-api.vercel.app/devlinks-api/v1/users";
 
 export async function signUp({
   email,

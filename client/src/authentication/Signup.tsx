@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Logo from "../ui/Logo";
 import { UseSignup } from "./useSignup";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import validator from "validator";
 
 type FormData = {
@@ -19,7 +18,7 @@ function Signup() {
 
   const { errors } = formState;
 
-  const { isSigningUp, signUp } = UseSignup();
+  const { signUp } = UseSignup();
   // console.log(errors);
   function onSubmit(data: FormData) {
     console.log(data);
