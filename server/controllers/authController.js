@@ -126,6 +126,15 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.matchPassword(password, user.password))) {
     return next(new AppError("Invalid email or password.", 401));
   }
+  if (!user.isVerified) {
+    return next(
+      new AppError(
+        "Your email is not verified. Please verify your email address.",
+        401
+      )
+    );
+  }
+
   req.user = user;
 
   // Create a token for the user

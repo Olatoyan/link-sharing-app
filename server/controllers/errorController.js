@@ -13,7 +13,9 @@ const handleDuplicateFieldsDB = (err) => {
   const value = err.keyValue[fields];
 
   console.log(value);
-  const message = `Duplicate field value: ${value}. Please use another value!`;
+  const message = `This email is already registered. Please use a different email address.`;
+
+  // const message = `Duplicate field value: ${value}. Please use another value!`;
 
   return new AppError(message, 400);
 };
@@ -69,8 +71,7 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === "production") {
-    let error = { ...err, name: err.name };
-
+    let error = { ...err, name: err.name, message: err.message };
     if (error.name === "CastError") {
       error = handleCastErrorDB(error);
     }
@@ -90,7 +91,6 @@ module.exports = (err, req, res, next) => {
     if (error.name === "TokenExpiredError") {
       error = handleJWTExpiredError();
     }
-
     sendErrorProd(error, res);
   }
 };

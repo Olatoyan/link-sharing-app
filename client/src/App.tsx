@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./authentication/Signup";
 import Login from "./authentication/Login";
+import VerifyEmailSection from "./authentication/VerifyEmailSection";
 import ProfileLinksSection from "./features/links/ProfileLinksSection";
 import { LinksProvider } from "./contexts/LinksContext";
 
@@ -24,13 +25,12 @@ function App() {
           <Route path="/" index element={<Navigate replace to="signup" />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
-          <Route path="devlinks-api/v1/users">
-            <Route path="verify-email" element={<Signup />} />
-          </Route>
+          <Route path="verify-email" element={<VerifyEmailSection />} />
+
           <Route path="profile" element={<ProfileLinksSection />} />
         </Routes>
         <Toaster
-          position="bottom-right"
+          position="top-center"
           gutter={12}
           containerStyle={{ margin: "8px" }}
           toastOptions={{

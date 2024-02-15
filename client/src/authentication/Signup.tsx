@@ -3,6 +3,7 @@ import Logo from "../ui/Logo";
 import { UseSignup } from "./useSignup";
 import { useForm } from "react-hook-form";
 import validator from "validator";
+import MiniSpinner from "../ui/MiniSpinner";
 
 type FormData = {
   email: string;
@@ -14,19 +15,27 @@ function Signup() {
   // const [password, setPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { register, handleSubmit, getValues, formState } = useForm<FormData>();
+  const { register, handleSubmit, getValues, formState, reset } =
+    useForm<FormData>();
 
   const { errors } = formState;
 
-  const { signUp } = UseSignup();
+  const { signUp, isSigningUp } = UseSignup();
   // console.log(errors);
   function onSubmit(data: FormData) {
     console.log(data);
-    signUp({
-      email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-    });
+    signUp(
+      {
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      },
+    );
   }
 
   return (
@@ -61,12 +70,13 @@ function Signup() {
                   type="email"
                   placeholder="e.g. alex@email.com"
                   id="email"
-                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.email?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.email?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                   {...register("email", {
                     required: "Can’t be empty",
                     validate: (value) =>
                       validator.isEmail(value) || "Invalid email",
                   })}
+                  disabled={isSigningUp}
                 />
                 {errors.email?.message && (
                   <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
@@ -93,7 +103,7 @@ function Signup() {
                   type="password"
                   placeholder="At least 8 characters"
                   id="password"
-                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.password?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.password?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                   {...register("password", {
                     required: "Can’t be empty",
                     minLength: {
@@ -101,6 +111,7 @@ function Signup() {
                       message: "Must be at least 8 characters",
                     },
                   })}
+                  disabled={isSigningUp}
                 />
                 {errors.password?.message && (
                   <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
@@ -126,13 +137,14 @@ function Signup() {
                   type="password"
                   placeholder="At least 8 characters"
                   id="confirm"
-                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.confirmPassword?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.confirmPassword?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                   {...register("confirmPassword", {
                     required: "Can’t be empty",
                     validate: (value) =>
                       value === getValues("password") ||
                       "Passwords don't match",
                   })}
+                  disabled={isSigningUp}
                 />
                 {errors.confirmPassword?.message && (
                   <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
@@ -144,8 +156,11 @@ function Signup() {
             <p className="text-[1.2rem] leading-[1.8rem] text-[#737373]">
               Password must contain at least 8 characters
             </p>
-            <button className="rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh">
-              Create new account
+            <button
+              className="flex justify-center rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh disabled:cursor-not-allowed"
+              disabled={isSigningUp}
+            >
+              {isSigningUp ? <MiniSpinner /> : "Create new account"}
             </button>
 
             <h3 className="text-center text-[1.6rem] leading-[2.4rem] text-[#737373]">

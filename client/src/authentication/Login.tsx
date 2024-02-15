@@ -1,7 +1,29 @@
 import { Link } from "react-router-dom";
 import Logo from "../ui/Logo";
+import { useForm } from "react-hook-form";
+import validator from "validator";
+import { useLogin } from "./useLogin";
+import MiniSpinner from "../ui/MiniSpinner";
 
+type FormData = {
+  email: string;
+  password: string;
+};
 function Login() {
+  const { register, handleSubmit, formState } = useForm<FormData>();
+
+  const { errors } = formState;
+
+  const { isLoggingIn, loginFn } = useLogin();
+
+  function onSubmit(data: FormData) {
+    console.log(data);
+    loginFn({
+      email: data.email,
+      password: data.password,
+    });
+  }
+
   return (
     <section className="flex min-h-[100dvh] items-center justify-center">
       <section className="flex w-full max-w-[50rem] flex-col items-center justify-center">
@@ -13,7 +35,10 @@ function Login() {
           <h2 className="pb-16 text-[1.6rem] leading-[2.4rem] text-[#737373]">
             Add your details below to get back into the app
           </h2>
-          <form className="flex flex-col space-y-[2.4rem]">
+          <form
+            className="flex flex-col space-y-[2.4rem]"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -31,11 +56,19 @@ function Login() {
                   type="email"
                   placeholder="e.g. alex@email.com"
                   id="email"
-                  className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.email?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  {...register("email", {
+                    required: "Can’t be empty",
+                    validate: (value) =>
+                      validator.isEmail(value) || "Invalid email",
+                  })}
+                  disabled={isLoggingIn}
                 />
-                <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
-                  cant't be empty
-                </p>
+                {errors.email?.message && (
+                  <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
             </div>
             <div>
@@ -56,16 +89,25 @@ function Login() {
                   type="password"
                   placeholder="Enter your password"
                   id="password"
-                  className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] outline-none  focus:shadow-purple-sh disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.password?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  {...register("password", {
+                    required: "Can’t be empty",
+                  })}
+                  disabled={isLoggingIn}
                 />
-                <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
-                  cant't be empty
-                </p>
+                {errors.password?.message && (
+                  <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            <button className="rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh">
-              Login
+            <button
+              className="flex justify-center rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh disabled:cursor-not-allowed"
+              disabled={isLoggingIn}
+            >
+              {isLoggingIn ? <MiniSpinner /> : "Login"}
             </button>
 
             <h3 className="text-center text-[1.6rem] leading-[2.4rem] text-[#737373]">
