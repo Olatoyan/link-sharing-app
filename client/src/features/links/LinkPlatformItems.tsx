@@ -1,21 +1,27 @@
 import { motion } from "framer-motion";
+import { useLinks } from "../../contexts/LinksContext";
 
 function LinkPlatformItems({
   name,
   icon,
   links,
+  index,
   setLinks,
   setIsLinkBoxOpen,
 }: {
   name: string;
   links: string;
   icon: JSX.Element;
+  index: number;
   setLinks: React.Dispatch<React.SetStateAction<string>>;
   setIsLinkBoxOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { updateLink } = useLinks();
+
   function handleChangePlatform() {
     setLinks(name);
     setIsLinkBoxOpen(false);
+    updateLink(index, { name });
   }
   return (
     <motion.div

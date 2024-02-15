@@ -8,6 +8,7 @@ export type LinkProps = {
 type LinksState = {
   links: LinkProps[];
   addLink: (name: string, link: string) => void;
+  updateLink: (index: number, updatedFields: Partial<LinkProps>) => void;
 };
 
 const LinksContext = createContext<LinksState | null>(null);
@@ -19,8 +20,15 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
     setLinks((prevLinks) => [...prevLinks, { name, link }]);
   }
 
+  function updateLink(index: number, updatedFields: Partial<LinkProps>) {
+    setLinks((prevLinks) =>
+      prevLinks.map((link, i) =>
+        i === index ? { ...link, ...updatedFields } : link,
+      ),
+    );
+  }
   return (
-    <LinksContext.Provider value={{ links, addLink }}>
+    <LinksContext.Provider value={{ links, addLink, updateLink }}>
       {children}
     </LinksContext.Provider>
   );

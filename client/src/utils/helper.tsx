@@ -16,19 +16,19 @@ import {
   FaStackOverflow,
 } from "react-icons/fa";
 
-export function getCorrespondingLogo(name: string) {
-  if (name === "Github") return <PiGithubLogoFill />;
-  if (name === "Dev.to") return <PiDevToLogoFill />;
-  if (name === "Frontend Mentor") return <SiFrontendmentor />;
-  if (name === "Codewars") return <SiCodewars />;
-  if (name === "Gitlab") return <SiGitlab />;
-  if (name === "Hashnode") return <SiHashnode />;
-  if (name === "Twitter") return <IoLogoTwitter />;
-  if (name === "LinkedIn") return <FaLinkedin />;
-  if (name === "Youtube") return <FaYoutube />;
-  if (name === "Facebook") return <FaFacebook />;
-  if (name === "Twitch") return <FaTwitch />;
-  if (name === "Codepen") return <FaCodepen />;
-  if (name === "freecodecamp") return <FaFreeCodeCamp />;
-  if (name === "StackOverflow") return <FaStackOverflow />;
+export function getCorrespondingLogo(name: string, size?: string) {
+  if (name === "Github") return <PiGithubLogoFill size={size} />;
+  if (name === "Dev.to") return <PiDevToLogoFill size={size} />;
+  if (name === "Frontend Mentor") return <SiFrontendmentor size={size} />;
+  if (name === "Codewars") return <SiCodewars size={size} />;
+  if (name === "Gitlab") return <SiGitlab size={size} />;
+  if (name === "Hashnode") return <SiHashnode size={size} />;
+  if (name === "Twitter") return <IoLogoTwitter size={size} />;
+  if (name === "LinkedIn") return <FaLinkedin size={size} />;
+  if (name === "YouTube") return <FaYoutube size={size} />;
+  if (name === "Facebook") return <FaFacebook size={size} />;
+  if (name === "Twitch") return <FaTwitch size={size} />;
+  if (name === "Codepen") return <FaCodepen size={size} />;
+  if (name === "freeCodeCamp") return <FaFreeCodeCamp size={size} />;
+  if (name === "StackOverflow") return <FaStackOverflow size={size} />;
 }

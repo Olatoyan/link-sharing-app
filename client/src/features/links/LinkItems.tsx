@@ -20,7 +20,7 @@ import {
 } from "react-icons/fa";
 import LinkPlatformItems from "./LinkPlatformItems";
 
-import { LinkProps } from "../../contexts/LinksContext";
+import { LinkProps, useLinks } from "../../contexts/LinksContext";
 import { getCorrespondingLogo } from "../../utils/helper";
 
 const socialPlatforms = [
@@ -82,15 +82,31 @@ const socialPlatforms = [
   },
 ];
 
-function LinkItems({ link, number }: { link: LinkProps; number: number }) {
+function LinkItems({
+  link,
+  number,
+  index,
+}: {
+  link: LinkProps;
+  number: number;
+  index: number;
+}) {
+  const { updateLink } = useLinks();
+  console.log(link);
   const [links, setLinks] = useState("Github");
   const [isLinkBoxOpen, setIsLinkBoxOpen] = useState(false);
+  const [linkUrl, setLinkUrl] = useState(link.link);
 
   function handlePlatformChange(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     event.preventDefault();
     setIsLinkBoxOpen((prev) => !prev);
+  }
+
+  function handleUpdateLinkUrl(event: React.ChangeEvent<HTMLInputElement>) {
+    setLinkUrl(event.target.value);
+    updateLink(index, { link: event.target.value, name: links });
   }
 
   return (
@@ -157,6 +173,7 @@ function LinkItems({ link, number }: { link: LinkProps; number: number }) {
                   >
                     {socialPlatforms.map((platform) => (
                       <LinkPlatformItems
+                        index={index}
                         name={platform.name}
                         icon={platform.icon}
                         key={platform.name}
@@ -188,6 +205,8 @@ function LinkItems({ link, number }: { link: LinkProps; number: number }) {
               type="text"
               placeholder="e.g. https://www.github.com/johnappleseed"
               id="link"
+              value={linkUrl}
+              onChange={handleUpdateLinkUrl}
               className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[4rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
             />
             <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
