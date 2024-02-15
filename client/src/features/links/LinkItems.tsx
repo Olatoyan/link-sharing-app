@@ -20,6 +20,9 @@ import {
 } from "react-icons/fa";
 import LinkPlatformItems from "./LinkPlatformItems";
 
+import { LinkProps } from "../../contexts/LinksContext";
+import { getCorrespondingLogo } from "../../utils/helper";
+
 const socialPlatforms = [
   {
     name: "Github",
@@ -79,23 +82,7 @@ const socialPlatforms = [
   },
 ];
 
-function getCorrespondingLogo(name: string) {
-  if (name === "Github") return <PiGithubLogoFill />;
-  if (name === "Dev.to") return <PiDevToLogoFill />;
-  if (name === "Frontend Mentor") return <SiFrontendmentor />;
-  if (name === "Codewars") return <SiCodewars />;
-  if (name === "Gitlab") return <SiGitlab />;
-  if (name === "Hashnode") return <SiHashnode />;
-  if (name === "Twitter") return <IoLogoTwitter />;
-  if (name === "LinkedIn") return <FaLinkedin />;
-  if (name === "Youtube") return <FaYoutube />;
-  if (name === "Facebook") return <FaFacebook />;
-  if (name === "Twitch") return <FaTwitch />;
-  if (name === "Codepen") return <FaCodepen />;
-  if (name === "freecodecamp") return <FaFreeCodeCamp />;
-  if (name === "StackOverflow") return <FaStackOverflow />;
-}
-function LinkItems() {
+function LinkItems({ link, number }: { link: LinkProps; number: number }) {
   const [links, setLinks] = useState("Github");
   const [isLinkBoxOpen, setIsLinkBoxOpen] = useState(false);
 
@@ -107,10 +94,10 @@ function LinkItems() {
   }
 
   return (
-    <div>
+    <div className="rounded-[1.2rem] bg-[#fafafa] p-8">
       <div className="flex items-center justify-between">
         <h3 className="text-[1.6rem] font-bold leading-[2.4rem] text-[#737373]">
-          Link #1
+          Link #{number}
         </h3>
         <p className="text-[1.6rem] leading-[2.4rem] text-[#737373]">Remove</p>
       </div>
@@ -214,90 +201,3 @@ function LinkItems() {
 }
 
 export default LinkItems;
-
-/*
-<div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <PiGithubLogoFill size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Github
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <SiFrontendmentor size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Frontend Mentor
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <IoLogoTwitter size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Twitter
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaLinkedin size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        LinkedIn
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaYoutube size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        YouTube
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaFacebook size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Facebook
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaTwitch size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Twitch
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <PiDevToLogoFill size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Dev.to
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <SiCodewars size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Codewars
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaCodepen size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Codepen
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaFreeCodeCamp size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        freeCodeCamp
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <SiGitlab size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Gitlab
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <SiHashnode size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        Hashnode
-                      </span>
-                    </div>
-                    <div className="flex cursor-pointer items-center gap-5 border-b border-solid border-[#d9d9d9] pb-5 text-[#333] transition-none hover:text-[#633cff]">
-                      <FaStackOverflow size={"1.6rem"} />
-                      <span className="text-[1.6rem] leading-[2.4rem]">
-                        StackOverflow
-                      </span>
-                    </div>
-*/

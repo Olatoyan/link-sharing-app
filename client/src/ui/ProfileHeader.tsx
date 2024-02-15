@@ -5,7 +5,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 function ProfileHeader() {
   return (
-    <header className="flex items-center justify-between pt-[2.4rem]">
+    <header className="flex items-center justify-between bg-white py-[2.4rem]">
       <Logo />
 
       <div className="flex items-center gap-[1.6rem]">
