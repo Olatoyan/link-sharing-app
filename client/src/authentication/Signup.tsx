@@ -1,7 +1,35 @@
 import { Link } from "react-router-dom";
 import Logo from "../ui/Logo";
+import { UseSignup } from "./useSignup";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import validator from "validator";
 
+type FormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 function Signup() {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { register, handleSubmit, getValues, formState } = useForm<FormData>();
+
+  const { errors } = formState;
+
+  const { isSigningUp, signUp } = UseSignup();
+  // console.log(errors);
+  function onSubmit(data: FormData) {
+    console.log(data);
+    signUp({
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    });
+  }
+
   return (
     <section className="flex min-h-[100dvh] items-center justify-center">
       <section className="flex w-full max-w-[50rem] flex-col items-center justify-center">
@@ -13,7 +41,10 @@ function Signup() {
           <h2 className="pb-16 text-[1.6rem] leading-[2.4rem] text-[#737373]">
             Let's get you started sharing your links!
           </h2>
-          <form className="flex flex-col space-y-[2.4rem]">
+          <form
+            className="flex flex-col space-y-[2.4rem]"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -31,11 +62,18 @@ function Signup() {
                   type="email"
                   placeholder="e.g. alex@email.com"
                   id="email"
-                  className="focus:shadow-purple-sh w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff]"
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.email?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  {...register("email", {
+                    required: "Can’t be empty",
+                    validate: (value) =>
+                      validator.isEmail(value) || "Invalid email",
+                  })}
                 />
-                <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
-                  cant't be empty
-                </p>
+                {errors.email?.message && (
+                  <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
             </div>
             <div>
@@ -56,11 +94,20 @@ function Signup() {
                   type="password"
                   placeholder="At least 8 characters"
                   id="password"
-                  className="focus:shadow-purple-sh w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff]"
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.password?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  {...register("password", {
+                    required: "Can’t be empty",
+                    minLength: {
+                      value: 8,
+                      message: "Must be at least 8 characters",
+                    },
+                  })}
                 />
-                <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
-                  cant't be empty
-                </p>
+                {errors.password?.message && (
+                  <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             </div>
             <div>
@@ -80,17 +127,25 @@ function Signup() {
                   type="password"
                   placeholder="At least 8 characters"
                   id="confirm"
-                  className="focus:shadow-purple-sh w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff]"
+                  className={`w-full rounded-[0.8rem] border border-solid bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333]  outline-none focus:shadow-purple-sh ${errors.confirmPassword?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
+                  {...register("confirmPassword", {
+                    required: "Can’t be empty",
+                    validate: (value) =>
+                      value === getValues("password") ||
+                      "Passwords don't match",
+                  })}
                 />
-                <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
-                  cant't be empty
-                </p>
+                {errors.confirmPassword?.message && (
+                  <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
               </div>
             </div>
             <p className="text-[1.2rem] leading-[1.8rem] text-[#737373]">
               Password must contain at least 8 characters
             </p>
-            <button className="hover:shadow-purple-sh rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff]">
+            <button className="rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh">
               Create new account
             </button>
 

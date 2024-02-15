@@ -31,7 +31,7 @@ function Login() {
                   type="email"
                   placeholder="e.g. alex@email.com"
                   id="email"
-                  className="focus:shadow-purple-sh w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff]"
+                  className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
                 />
                 <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
                   cant't be empty
@@ -56,7 +56,7 @@ function Login() {
                   type="password"
                   placeholder="Enter your password"
                   id="password"
-                  className="focus:shadow-purple-sh w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff]"
+                  className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[3.5rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
                 />
                 <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
                   cant't be empty
@@ -64,13 +64,13 @@ function Login() {
               </div>
             </div>
 
-            <button className="hover:shadow-purple-sh rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff]">
+            <button className="rounded-[0.8rem] bg-[#633cff] py-4 text-[1.6rem] font-bold leading-[2.4rem] text-white hover:bg-[#beadff] hover:shadow-purple-sh">
               Login
             </button>
 
             <h3 className="text-center text-[1.6rem] leading-[2.4rem] text-[#737373]">
               Don’t have an account?{" "}
-              <Link to="/" className="text-[#633cff]">
+              <Link to="/signup" className="text-[#633cff]">
                 Create account
               </Link>
             </h3>

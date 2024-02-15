@@ -21,8 +21,8 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <LinksProvider>
         <Routes>
-          <Route path="/" index element={<Navigate replace to="login" />} />
-          <Route path="/" element={<Signup />} />
+          <Route path="/" index element={<Navigate replace to="signup" />} />
+          <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<ProfileLinksSection />} />
         </Routes>
