@@ -2,6 +2,8 @@ const BASE_URL = "http://127.0.0.1:5000/devlinks-api/v1/users";
 // const BASE_URL =
 //   "https://toyan-link-sharing-app-api.vercel.app/devlinks-api/v1/users";
 
+import Cookies from "js-cookie";
+
 export async function signUp({
   email,
   password,
@@ -78,6 +80,7 @@ export async function login({
       throw new Error(data.message);
     }
     console.log(data);
+    Cookies.set("jwt", data.token);
     return data;
   } catch (error) {
     console.log(error);

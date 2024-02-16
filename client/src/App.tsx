@@ -7,6 +7,8 @@ import Login from "./authentication/Login";
 import VerifyEmailSection from "./authentication/VerifyEmailSection";
 import ProfileLinksSection from "./features/links/ProfileLinksSection";
 import { LinksProvider } from "./contexts/LinksContext";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import AppLayout from "./ui/AppLayout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,15 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="verify-email" element={<VerifyEmailSection />} />
 
-          <Route path="profile" element={<ProfileLinksSection />} />
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="add-links" element={<ProfileLinksSection />} />
+          </Route>
         </Routes>
         <Toaster
           position="top-center"
