@@ -87,7 +87,7 @@ const socialPlatforms = [
   {
     name: "freeCodeCamp",
     icon: <FaFreeCodeCamp size={"1.6rem"} />,
-    url: "https://www.freecodecamp.org/",
+    url: "https://www.freecodecamp.org/news/author",
   },
   {
     name: "StackOverflow",
@@ -106,9 +106,11 @@ function LinkItems({
   index: number;
 }) {
   const { updateLink, deleteLink } = useLinks();
-  const [links, setLinks] = useState("Github");
+  const [links, setLinks] = useState(link.name);
   const [isLinkBoxOpen, setIsLinkBoxOpen] = useState(false);
-  const [linkUrl, setLinkUrl] = useState(getRightProfileUrl(links)!);
+  const [linkUrl, setLinkUrl] = useState(
+    link.link || getRightProfileUrl(link.name)!,
+  );
 
   console.log(getRightProfileUrl(links));
 

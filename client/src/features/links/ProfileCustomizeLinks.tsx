@@ -5,7 +5,6 @@ import { useLinks } from "../../contexts/LinksContext";
 
 function ProfileCustomizeLinks() {
   const { links, addLink } = useLinks();
-  console.log(links);
 
   return (
     <div className="flex flex-col bg-white p-16">

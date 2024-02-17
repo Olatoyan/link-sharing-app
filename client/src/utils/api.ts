@@ -87,3 +87,27 @@ export async function login({
     throw error;
   }
 }
+
+export async function getUsersLink() {
+  try {
+    const token = Cookies.get("jwt");
+    const response = await fetch(`${BASE_URL}/links`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    const data = await response.json();
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+}

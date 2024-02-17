@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useUserLink } from "../features/links/useUserLink";
 
 export type LinkProps = {
   name: string;
@@ -16,6 +17,7 @@ const LinksContext = createContext<LinksState | null>(null);
 
 function LinksProvider({ children }: { children: React.ReactNode }) {
   const [links, setLinks] = useState<LinkProps[]>([]);
+  const { user } = useUserLink();
 
   function addLink(name: string, link: string) {
     setLinks((prevLinks) => [...prevLinks, { name, link }]);
@@ -32,6 +34,17 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
   function deleteLink(index: number) {
     setLinks(links.filter((_, i) => i !== index));
   }
+
+  const userLinks: LinkProps[] = user?.data?.links;
+  console.log(userLinks);
+  useEffect(() => {
+    if (user) {
+      userLinks.forEach((user) => {
+        addLink(user.name, user.link);
+      });
+    }
+  }, [userLinks, user]);
+
   return (
     <LinksContext.Provider value={{ links, addLink, updateLink, deleteLink }}>
       {children}

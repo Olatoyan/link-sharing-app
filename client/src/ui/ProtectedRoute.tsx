@@ -9,7 +9,7 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!jwt) {
+    if (!jwt || jwt === "undefined") {
       navigate("/login");
       // setTimeout(() => {
       //   toast.error("You need to be logged in to view this page");

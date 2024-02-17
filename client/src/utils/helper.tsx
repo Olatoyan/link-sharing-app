@@ -65,6 +65,7 @@ export function getRightProfileUrl(name: string) {
   if (name === "Facebook") return "https://www.facebook.com/";
   if (name === "Twitch") return "https://www.twitch.tv/";
   if (name === "Codepen") return "https://codepen.io/";
-  if (name === "freeCodeCamp") return "https://www.freecodecamp.org/";
+  if (name === "freeCodeCamp")
+    return "https://www.freecodecamp.org/news/author";
   if (name === "StackOverflow") return "https://stackoverflow.com/users/";
 }
