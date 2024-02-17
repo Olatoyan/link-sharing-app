@@ -1,14 +1,36 @@
-import { useForm } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
+import Cookie from "js-cookie";
 
 type FormData = {
   firstName: string;
   lastName: string;
-  confirmPassword: string;
 };
-function ProfileDetails() {
-  const { register, handleSubmit, formState } = useForm<FormData>();
+type ProfileDetailsProps = {
+  register: UseFormRegister<FormData>;
+  errors: FieldErrors<FormData>;
+  handleSubmit: UseFormHandleSubmit<FormData>;
+  isUpdating: boolean;
+};
 
-  const { errors } = formState;
+function ProfileDetails({
+  register,
+  errors,
+  handleSubmit,
+  isUpdating,
+}: ProfileDetailsProps) {
+  // const { register, handleSubmit, formState } = useForm<FormData>();
+
+  // const { errors } = formState;
+
+  const UserMail = Cookie.get("userMail");
+
+  function onSubmitData(data: FormData): void {
+    console.log(data);
+  }
 
   return (
     <div className="border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
@@ -19,7 +41,7 @@ function ProfileDetails() {
         Add your details to create a personal touch to your profile.
       </p>
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmitData)}>
         <div className="flex items-center justify-between gap-[1.6rem] p-8">
           <span className="w-[24rem] text-[1.6rem] leading-[2.4rem] text-[#737373]">
             Profile picture
@@ -66,8 +88,12 @@ function ProfileDetails() {
                 className={`w-full rounded-[0.8rem] border border-solid bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.firstName?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                 {...register("firstName", {
                   required: "Can’t be empty",
+                  minLength: {
+                    value: 3,
+                    message: "Must be at least 3 characters",
+                  },
                 })}
-                // disabled={isSigningUp}
+                disabled={isUpdating}
               />
               {errors.firstName?.message && (
                 <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
@@ -91,8 +117,12 @@ function ProfileDetails() {
                 className={`w-full rounded-[0.8rem] border border-solid bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.lastName?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                 {...register("lastName", {
                   required: "Can’t be empty",
+                  minLength: {
+                    value: 3,
+                    message: "Must be at least 3 characters",
+                  },
                 })}
-                // disabled={isSigningUp}
+                disabled={isUpdating}
               />
               {errors.lastName?.message && (
                 <p className="absolute right-[2.5%] top-[40%] text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
@@ -113,6 +143,7 @@ function ProfileDetails() {
                 type="text"
                 placeholder="e.g. John"
                 id="email"
+                value={UserMail}
                 className={`w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff]  outline-none focus:border-[#633cff] focus:shadow-purple-sh disabled:cursor-not-allowed disabled:bg-[#ddd] `}
                 disabled={true}
               />

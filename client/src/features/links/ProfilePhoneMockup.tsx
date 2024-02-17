@@ -1,9 +1,14 @@
 import { useLinks } from "../../contexts/LinksContext";
+import { useUserContext } from "../../contexts/UserProfileContext";
 import { getBgColor, getCorrespondingLogo } from "../../utils/helper";
+import Cookies from "js-cookie";
 
 function ProfilePhoneMockup() {
   const { links } = useLinks();
+  const { firstName, lastName } = useUserContext();
   console.log(links);
+
+  const UserMail = Cookies.get("userMail");
 
   return (
     <div className="relative flex w-full flex-col items-center justify-start justify-self-center bg-white p-16 pb-0">
@@ -26,6 +31,17 @@ function ProfilePhoneMockup() {
             />
           </div>
         ))}
+      </div>
+      <div className="absolute top-[22rem] flex flex-col items-center">
+        <p className="w-full bg-white text-center text-[1.8rem] font-semibold leading-[2.7rem] text-[#333]">
+          {firstName} {lastName}
+        </p>
+
+        <p
+          className={`bg-white text-[1.4rem] leading-[2.1rem] text-[#737373] ${firstName || lastName ? "pt-0" : "pt-[2.2rem]"}`}
+        >
+          {UserMail}
+        </p>
       </div>
     </div>
   );
