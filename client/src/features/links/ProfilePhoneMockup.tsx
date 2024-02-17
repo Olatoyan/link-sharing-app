@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 function ProfilePhoneMockup() {
   const { links } = useLinks();
-  const { firstName, lastName } = useUserContext();
+  const { firstName, lastName, photo } = useUserContext();
   console.log(links);
 
   const UserMail = Cookies.get("userMail");
@@ -43,6 +43,14 @@ function ProfilePhoneMockup() {
           {UserMail}
         </p>
       </div>
+
+      {photo ? (
+        <img
+          src={photo}
+          alt="photo"
+          className="absolute top-[10.5rem] h-[9.6rem] w-[9.6rem] rounded-full object-cover"
+        />
+      ) : null}
     </div>
   );
 }

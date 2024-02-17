@@ -7,6 +7,7 @@ import SaveBtn from "../../ui/SaveBtn";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../contexts/UserProfileContext";
 import { useUpdateProfile } from "./useUpdateProfile";
+import { useGetUserProfile } from "./useGetUserProfile";
 
 type FormData = {
   firstName: string;
@@ -15,11 +16,12 @@ type FormData = {
 
 function ProfileDetailsSection() {
   const { isFetching } = useUserLink();
+  const { isPending } = useGetUserProfile();
   const { register, handleSubmit, formState } = useForm<FormData>();
 
   const { errors } = formState;
 
-  const { updateFirstName, updateLastName } = useUserContext();
+  const { updateFirstName, updateLastName, photo } = useUserContext();
   const { updateProfile, isUpdating } = useUpdateProfile();
 
   function onSubmitData(data: FormData): void {
@@ -28,6 +30,7 @@ function ProfileDetailsSection() {
       {
         firstName: data.firstName,
         lastName: data.lastName,
+        photo: photo,
       },
       {
         onSuccess: () => {
@@ -38,7 +41,7 @@ function ProfileDetailsSection() {
     );
   }
 
-  if (isFetching) return <Loader />;
+  if (isFetching || isPending) return <Loader />;
 
   return (
     <section className="grid grid-cols-2 gap-8 pt-16">

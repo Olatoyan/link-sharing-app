@@ -189,9 +189,11 @@ export async function createUserLink({
 export async function updateUserProfile({
   firstName,
   lastName,
+  photo,
 }: {
   firstName: string;
   lastName: string;
+  photo: string;
 }) {
   const token = Cookies.get("jwt");
   const email = Cookies.get("userMail");
@@ -206,9 +208,33 @@ export async function updateUserProfile({
         firstName,
         lastName,
         email,
+        photo,
       }),
     });
 
+    console.log(response);
+    const data = await response.json();
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getUserProfile() {
+  const token = Cookies.get("jwt");
+  try {
+    const response = await fetch(`${BASE_URL}/profile-update`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response);
     const data = await response.json();
     if (data.status === "fail") {

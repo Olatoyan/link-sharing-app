@@ -6,8 +6,10 @@ import Cookies from "js-cookie";
 import { useLinks } from "../../contexts/LinksContext";
 import { useCreateUserLink } from "./useCreateUserLink";
 import SaveBtn from "../../ui/SaveBtn";
+import { useGetUserProfile } from "../profile/useGetUserProfile";
 function ProfileLinksSection() {
-  const { isFetching, user } = useUserLink();
+  const { isFetching } = useUserLink();
+  const { isPending } = useGetUserProfile();
   const { links } = useLinks();
   const { createUserLink } = useCreateUserLink();
 
@@ -23,7 +25,7 @@ function ProfileLinksSection() {
     });
   }
 
-  if (isFetching && !user) return <Loader />;
+  if (isFetching || isPending) return <Loader />;
 
   return (
     <section className="grid grid-cols-2 gap-8 pt-16">

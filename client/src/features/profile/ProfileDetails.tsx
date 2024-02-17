@@ -4,6 +4,8 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import Cookie from "js-cookie";
+import { useUserContext } from "../../contexts/UserProfileContext";
+import { IoImageOutline } from "react-icons/io5";
 
 type FormData = {
   firstName: string;
@@ -22,9 +24,20 @@ function ProfileDetails({
   handleSubmit,
   isUpdating,
 }: ProfileDetailsProps) {
-  // const { register, handleSubmit, formState } = useForm<FormData>();
+  const { updatePhoto, photo, firstName, lastName } = useUserContext();
 
-  // const { errors } = formState;
+  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files![0]);
+    const newPhoto = event.target.files![0];
+    console.log(newPhoto);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(newPhoto);
+    reader.onloadend = () => {
+      updatePhoto(reader.result as string);
+      console.log(reader.result);
+    };
+  };
 
   const UserMail = Cookie.get("userMail");
 
@@ -52,18 +65,20 @@ function ProfileDetails({
             id="image"
             className="hidden"
             accept="image/jpg, image/png"
+            onChange={handlePhotoChange}
           />
           <div className="flex w-full items-center gap-[2.4rem]">
             <label
               htmlFor="image"
-              className="flex flex-col items-center gap-[0.8rem] rounded-[1.2rem] bg-[#efebff] px-12 py-24"
+              className={`flex w-[19.2rem] cursor-pointer flex-col items-center gap-[0.8rem] rounded-[1.2rem] bg-[#efebff] bg-cover bg-center px-12 py-24 ${photo ? "text-white" : "text-[#633cff]"}`}
+              style={{
+                backgroundImage: photo
+                  ? `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url(${photo})`
+                  : "",
+              }}
             >
-              <img
-                src="./icon-upload-image.svg"
-                alt="upload image"
-                className="w-[4rem]"
-              />
-              <span className="text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]">
+              <IoImageOutline size={"4rem"} />
+              <span className="text-[1.6rem] font-semibold leading-[2.4rem]">
                 + Upload Image
               </span>
             </label>
@@ -85,6 +100,7 @@ function ProfileDetails({
                 type="text"
                 placeholder="e.g. John"
                 id="firstName"
+                defaultValue={firstName}
                 className={`w-full rounded-[0.8rem] border border-solid bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.firstName?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                 {...register("firstName", {
                   required: "Can’t be empty",
@@ -114,6 +130,7 @@ function ProfileDetails({
                 type="text"
                 placeholder="e.g. Appleseed"
                 id="lastName"
+                defaultValue={lastName}
                 className={`w-full rounded-[0.8rem] border border-solid bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] outline-none focus:shadow-purple-sh  disabled:cursor-not-allowed disabled:bg-[#ccc] ${errors.lastName?.message ? "border-[#ff3939]" : "border-[#d9d9d9] caret-[#633cff] focus:border-[#633cff] "}`}
                 {...register("lastName", {
                   required: "Can’t be empty",
