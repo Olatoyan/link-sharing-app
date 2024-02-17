@@ -112,8 +112,6 @@ function LinkItems({
     link.link || getRightProfileUrl(link.name)!,
   );
 
-  console.log(getRightProfileUrl(links));
-
   function handlePlatformChange(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
@@ -179,7 +177,7 @@ function LinkItems({
                     ease: "easeInOut",
                     type: "spring",
                   }}
-                  className="absolute top-[6rem] z-[3] flex  w-full flex-col gap-[1.2rem] rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
+                  className="absolute top-[6rem] z-[3] flex  h-[30rem] w-full flex-col gap-[1.2rem] overflow-y-scroll rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
                 >
                   <motion.div
                     initial="initial"

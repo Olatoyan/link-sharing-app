@@ -5,6 +5,8 @@ exports.addLink = catchAsync(async (req, res, next) => {
   const { name, link } = req.body;
   // console.log(req.user._id);
   console.log(req.user);
+  // Delete existing links corresponding to the user
+  await Link.deleteMany({ user: req.user._id });
 
   const newLink = await Link.create({
     name,

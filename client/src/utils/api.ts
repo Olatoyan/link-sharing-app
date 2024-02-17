@@ -4,6 +4,8 @@ const BASE_URL = "http://127.0.0.1:5000/devlinks-api/v1/users";
 
 import Cookies from "js-cookie";
 
+const token = Cookies.get("jwt");
+
 export async function signUp({
   email,
   password,
@@ -81,6 +83,7 @@ export async function login({
     }
     console.log(data);
     Cookies.set("jwt", data.token);
+    Cookies.set("userId", data.data.user._id);
     return data;
   } catch (error) {
     console.log(error);
@@ -90,7 +93,6 @@ export async function login({
 
 export async function getUsersLink() {
   try {
-    const token = Cookies.get("jwt");
     const response = await fetch(`${BASE_URL}/links`, {
       method: "GET",
       headers: {
@@ -108,6 +110,76 @@ export async function getUsersLink() {
   } catch (error) {
     console.log(error);
 
+    throw error;
+  }
+}
+
+// export async function createLink({
+//   name,
+//   link,
+// }: {
+//   name: string;
+//   link: string;
+// }) {
+//   try {
+//     const token = Cookies.get("jwt");
+//     const response = await fetch(`${BASE_URL}/links`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         name,
+//         link,
+//       }),
+//     });
+//     console.log(response);
+//     const data = await response.json();
+//     if (data.status === "fail") {
+//       throw new Error(data.message);
+//     }
+//     console.log(data);
+//     return data;
+//     } catch (error) {
+//       console.log(error);
+//       throw error;
+//     }
+
+// }
+
+export async function createUserLink({
+  name,
+  link,
+  user,
+}: {
+  name: string;
+  link: string;
+  user: string;
+}) {
+  try {
+    const response = await fetch(`${BASE_URL}/links`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        link,
+        user,
+      }),
+    });
+
+    console.log(response);
+    const data = await response.json();
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 }

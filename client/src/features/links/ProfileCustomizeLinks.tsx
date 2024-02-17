@@ -2,9 +2,25 @@ import { HiOutlinePlus } from "react-icons/hi2";
 import EmptyLinksBox from "./EmptyLinksBox";
 import LinkItems from "./LinkItems";
 import { useLinks } from "../../contexts/LinksContext";
+import { useCreateUserLink } from "./useCreateUserLink";
+import Cookies from "js-cookie";
 
 function ProfileCustomizeLinks() {
   const { links, addLink } = useLinks();
+  const { createUserLink } = useCreateUserLink();
+  console.log(links);
+
+  function saveLinksToDB() {
+    const userId = Cookies.get("userId");
+    // console.log(userId);
+    links.forEach((link) => {
+      createUserLink({
+        name: link.name,
+        link: link.link,
+        user: userId!,
+      });
+    });
+  }
 
   return (
     <div className="flex flex-col bg-white p-16">
@@ -36,6 +52,7 @@ function ProfileCustomizeLinks() {
       <button
         className={`mt-auto self-end rounded-[0.8rem] bg-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-white ${links.length === 0 ? "bg-opacity-25" : ""}`}
         disabled={links.length === 0}
+        onClick={saveLinksToDB}
       >
         Save
       </button>

@@ -10,7 +10,7 @@ function ProfileHeader() {
 
       <div className="flex items-center gap-[1.6rem]">
         <Link
-          to="/links"
+          to="/add-links"
           className="flex items-center gap-[0.8rem] rounded-[0.8rem] bg-[#efebff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
         >
           <HiOutlineLink size={"2rem"} />
