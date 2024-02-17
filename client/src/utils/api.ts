@@ -4,8 +4,6 @@ const BASE_URL = "http://127.0.0.1:5000/devlinks-api/v1/users";
 
 import Cookies from "js-cookie";
 
-const token = Cookies.get("jwt");
-
 export async function signUp({
   email,
   password,
@@ -92,6 +90,8 @@ export async function login({
 }
 
 export async function getUsersLink() {
+  const token = Cookies.get("jwt");
+  console.log({ token });
   try {
     const response = await fetch(`${BASE_URL}/links`, {
       method: "GET",
@@ -157,6 +157,7 @@ export async function createUserLink({
   link: string;
   user: string;
 }) {
+  const token = Cookies.get("jwt");
   try {
     const response = await fetch(`${BASE_URL}/links`, {
       method: "POST",

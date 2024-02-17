@@ -159,10 +159,16 @@ function LinkItems({
             >
               {getCorrespondingLogo(link.name)}
               <p>{link.name}</p>
-              <img
+              <motion.img
                 src="./icon-chevron-down.svg"
                 alt="chevron down"
-                className="ml-auto"
+                className="ml-auto transition-none"
+                initial={{ rotate: isLinkBoxOpen ? 0 : 180 }}
+                animate={{ rotate: isLinkBoxOpen ? 180 : 0 }}
+                exit={{ rotate: isLinkBoxOpen ? 0 : 180 }}
+                transition={{
+                  type: "spring",
+                }}
               />
             </button>
 

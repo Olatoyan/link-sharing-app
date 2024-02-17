@@ -9,6 +9,7 @@ import ProfileLinksSection from "./features/links/ProfileLinksSection";
 import { LinksProvider } from "./contexts/LinksContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import AppLayout from "./ui/AppLayout";
+import ProfileDetailsSection from "./features/profile/ProfileDetailsSection";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ function App() {
             }
           >
             <Route path="add-links" element={<ProfileLinksSection />} />
+            <Route path="profile" element={<ProfileDetailsSection />} />
           </Route>
         </Routes>
         <Toaster
