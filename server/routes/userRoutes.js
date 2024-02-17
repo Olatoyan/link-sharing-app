@@ -11,6 +11,6 @@ const { updateProfile } = userController;
 router.route("/signup").post(signup);
 router.route("/verify-email").get(verifyEmail);
 router.route("/login").post(login);
-router.route("/profile-update").post(protected, updateProfile);
+router.route("/profile-update").patch(protected, updateProfile);
 
 module.exports = router;

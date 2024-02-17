@@ -2,28 +2,13 @@ import { HiOutlinePlus } from "react-icons/hi2";
 import EmptyLinksBox from "./EmptyLinksBox";
 import LinkItems from "./LinkItems";
 import { useLinks } from "../../contexts/LinksContext";
-import { useCreateUserLink } from "./useCreateUserLink";
-import Cookies from "js-cookie";
 
 function ProfileCustomizeLinks() {
   const { links, addLink } = useLinks();
-  const { createUserLink } = useCreateUserLink();
   console.log(links);
 
-  function saveLinksToDB() {
-    const userId = Cookies.get("userId");
-    // console.log(userId);
-    links.forEach((link) => {
-      createUserLink({
-        name: link.name,
-        link: link.link,
-        user: userId!,
-      });
-    });
-  }
-
   return (
-    <div className="flex flex-col bg-white p-16">
+    <div className="flex flex-col border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
       <h1 className="pb-[0.8rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
         Customize your links
       </h1>
@@ -40,7 +25,6 @@ function ProfileCustomizeLinks() {
         <span>Add link</span>
       </button>
 
-      {/* <LinkItems /> */}
       {links.length > 0 ? (
         links.map((link, index) => (
           <LinkItems key={index} index={index} link={link} number={index + 1} />
@@ -48,14 +32,6 @@ function ProfileCustomizeLinks() {
       ) : (
         <EmptyLinksBox />
       )}
-
-      <button
-        className={`mt-auto self-end rounded-[0.8rem] bg-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-white ${links.length === 0 ? "bg-opacity-25" : ""}`}
-        disabled={links.length === 0}
-        onClick={saveLinksToDB}
-      >
-        Save
-      </button>
     </div>
   );
 }

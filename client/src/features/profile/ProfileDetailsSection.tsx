@@ -3,6 +3,7 @@ import ProfilePhoneMockup from "../links/ProfilePhoneMockup";
 import { useUserLink } from "../links/useUserLink";
 import Loader from "../../ui/Loader";
 import ProfileDetails from "./ProfileDetails";
+import SaveBtn from "../../ui/SaveBtn";
 function ProfileDetailsSection() {
   const { isFetching } = useUserLink();
 
@@ -12,6 +13,8 @@ function ProfileDetailsSection() {
     <section className="grid grid-cols-2 gap-8 pt-16">
       <ProfilePhoneMockup />
       <ProfileDetails />
+
+      <SaveBtn disabled={false} onSave={() => {}} />
     </section>
   );
 }

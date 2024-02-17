@@ -82,6 +82,7 @@ export async function login({
     console.log(data);
     Cookies.set("jwt", data.token);
     Cookies.set("userId", data.data.user._id);
+    Cookies.set("userMail", data.data.user.email);
     return data;
   } catch (error) {
     console.log(error);
@@ -169,6 +170,42 @@ export async function createUserLink({
         name,
         link,
         user,
+      }),
+    });
+
+    console.log(response);
+    const data = await response.json();
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function updateUserProfile({
+  firstName,
+  lastName,
+}: {
+  firstName: string;
+  lastName: string;
+}) {
+  const token = Cookies.get("jwt");
+  const email = Cookies.get("userMail");
+  try {
+    const response = await fetch(`${BASE_URL}/profile-update`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
       }),
     });
 

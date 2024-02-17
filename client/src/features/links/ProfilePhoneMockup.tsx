@@ -6,7 +6,7 @@ function ProfilePhoneMockup() {
   console.log(links);
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-start justify-self-center bg-white p-16">
+    <div className="relative flex w-full flex-col items-center justify-start justify-self-center bg-white p-16 pb-0">
       <img src="./illustration-phone-mockup.svg" alt="phone mockup" />
 
       <div className="absolute top-[28rem] flex flex-col gap-[1.3rem] p-16">
