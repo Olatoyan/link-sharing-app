@@ -55,9 +55,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   // Call the method to create the email verification token
   const verificationToken = newUser.createEmailVerificationToken();
 
-  // Save the user to the database
-  await newUser.save();
-
   // Construct the verification link using the token
   const verificationLink = `localhost:5173/verify-email?token=${verificationToken}`;
   // const verificationLink = `${req.protocol}://${req.get(
@@ -78,6 +75,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     status: "success",
     message: "Verification email sent. Please verify your email address.",
   });
+
+  // Save the user to the database
+  await newUser.save();
 });
 
 exports.verifyEmail = catchAsync(async (req, res, next) => {
@@ -90,7 +90,7 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   // Find the user with the hashed token
   const user = await User.findOne({
     emailVerificationToken: hashedToken,
-    emailVerificationTokenExpires: { $gt: Date.now() }, // Check if the token is not expired
+    // emailVerificationTokenExpires: { $gt: Date.now() }, // Check if the token is not expired
   });
 
   // Send an error response if the user is not found
@@ -100,8 +100,8 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
 
   // Update the user's verification status
   user.isVerified = true;
-  user.emailVerificationToken = undefined;
-  user.emailVerificationTokenExpires = undefined;
+  // user.emailVerificationToken = undefined;
+  // user.emailVerificationTokenExpires = undefined;
   await user.save({ validateBeforeSave: false });
 
   res.status(200).json({

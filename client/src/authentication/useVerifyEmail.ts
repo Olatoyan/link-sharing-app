@@ -7,15 +7,12 @@ export function useVerifyEmail() {
   const navigate = useNavigate();
   const { mutate: verifyEmailFn, isPending: isVerifying } = useMutation({
     mutationFn: (token: string) => verifyEmail(token),
-    onSuccess: () => {
-      toast.success("Email verified successfully. You can log in now.");
-      navigate("/login");
-    },
-    onError: (error) => {
-      console.log(error);
-      toast.error(error.message);
-      navigate("/signup");
-    },
+
+    // onError: (error) => {
+    //   console.log(error);
+    //   toast.error(error.message);
+    //   navigate("/signup");
+    // },
   });
 
   return { verifyEmailFn, isVerifying };

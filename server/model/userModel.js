@@ -48,7 +48,6 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   emailVerificationToken: String,
-  emailVerificationTokenExpires: Date,
 });
 
 // userSchema.
@@ -71,8 +70,6 @@ userSchema.methods.createEmailVerificationToken = function () {
     .digest("hex");
 
   console.log({ verificationToken }, this.emailVerificationToken);
-
-  this.emailVerificationTokenExpires = Date.now() + 10 * 60 * 1000;
 
   return verificationToken;
 };
