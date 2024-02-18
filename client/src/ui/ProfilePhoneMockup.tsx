@@ -10,7 +10,7 @@ function ProfilePhoneMockup() {
   const UserMail = Cookies.get("userMail");
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-start justify-self-center bg-white p-16 pb-0">
+    <div className="tablet:hidden relative flex w-full flex-col items-center justify-start justify-self-center bg-white p-16 pb-0">
       <img src="./illustration-phone-mockup.svg" alt="phone mockup" />
 
       <div className="absolute top-[28rem] flex flex-col gap-[1.3rem] p-16">

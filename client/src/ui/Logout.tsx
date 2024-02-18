@@ -14,11 +14,11 @@ function Logout() {
   }
   return (
     <button
-      className="flex items-center gap-4 text-[1.6rem] text-[#737373] transition-none hover:text-[#633cff]"
+      className="mobile:px-[1.6rem] flex items-center gap-4 text-[1.6rem] text-[#737373] transition-none hover:text-[#633cff]"
       onClick={handleLogout}
     >
       <CiLogout size={"2rem"} />
-      <span>Logout</span>
+      <span className="mobile:hidden">Logout</span>
     </button>
   );
 }

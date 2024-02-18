@@ -38,25 +38,25 @@ function PreviewPage() {
   const links: LinkProps[] = offlineLinks.data.links;
 
   return (
-    <section className="relative min-h-[100dvh]">
-      <div className="h-[35rem] rounded-[0_0_3.2rem_3.2rem] bg-[#633cff]"></div>
+    <section className="mobile:bg-white relative min-h-[100dvh]">
+      <div className="mobile:hidden h-[35rem] rounded-[0_0_3.2rem_3.2rem] bg-[#633cff]"></div>
       {userId && userMail && token && (
-        <header className="absolute top-[2.4rem] mx-[2.4rem] flex w-[97%] items-center justify-between rounded-[1.2rem] bg-white px-[2.4rem] py-[1.6rem]">
+        <header className="mobile:static mobile:mx-0 absolute top-[2.4rem] mx-[2.4rem] flex w-[97%] items-center justify-between rounded-[1.2rem] bg-white px-[2.4rem] py-[1.6rem]">
           <Link
             to="/add-links"
-            className="rounded-[0.8rem] border border-solid border-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
+            className="mobile:px-8 rounded-[0.8rem] border border-solid border-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
           >
             Back to Editor
           </Link>
           <button
-            className="rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white"
+            className="mobile:px-8 rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white"
             onClick={handleClipboardCopy}
           >
             Share Link
           </button>
         </header>
       )}
-      <div className="absolute left-1/2 top-[20rem] flex w-[39.4rem] -translate-x-1/2 flex-col items-center rounded-[2.4rem] bg-white px-[5.6rem] py-[4.8rem] shadow-dark-sh">
+      <div className="mobile:static mobile:translate-x-0 mobile:shadow-none mobile:w-full absolute left-1/2 top-[20rem] flex w-[39.4rem] -translate-x-1/2 flex-col items-center rounded-[2.4rem] bg-white px-[5.6rem] py-[4.8rem] shadow-dark-sh">
         {user.photo ? (
           <img
             src={user.photo}

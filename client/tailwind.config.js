@@ -8,7 +8,11 @@ export default {
       },
       boxShadow: {
         "purple-sh": "0px 0px 32px 0px rgba(99, 60, 255, 0.25)",
-        'dark-sh': '0px 0px 32px 0px rgba(0, 0, 0, 0.10)'
+        "dark-sh": "0px 0px 32px 0px rgba(0, 0, 0, 0.10)",
+      },
+      screens: {
+        tablet: { max: "56.25em" },
+        mobile: { max: "48em" },
       },
     },
   },

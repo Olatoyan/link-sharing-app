@@ -6,10 +6,9 @@ import { useLinks } from "../../contexts/LinksContext";
 function ProfileCustomizeLinks({ isCreating }: { isCreating: boolean }) {
   const { links, addLink } = useLinks();
 
-
   return (
-    <div className="flex flex-col border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
-      <h1 className="pb-[0.8rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
+    <div className="mobile:p-[2.4rem] mobile:pb-0 flex flex-col border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
+      <h1 className="mobile:text-[2.4rem] mobile:leading-[3.6rem] pb-[0.8rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
         Customize your links
       </h1>
       <h3 className="pb-16 text-[1.6rem] leading-[2.4rem] text-[#737373]">

@@ -42,7 +42,7 @@ function ProfileDetailsSection() {
   if (isFetching || isPending) return <Loader />;
 
   return (
-    <section className="grid grid-cols-2 gap-8 pt-16">
+    <section className="tablet:grid-cols-1 tablet:pt-0 grid grid-cols-2 gap-8 pt-16">
       <ProfilePhoneMockup />
       <ProfileDetails
         register={register}

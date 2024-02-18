@@ -42,7 +42,7 @@ function ProfileDetails({
 
   return (
     <div className="border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
-      <h1 className="pb-[0.8rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
+      <h1 className="mobile:text-[2.4rem] mobile:leading-[3.6rem] pb-[0.8rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
         Profile Details
       </h1>
       <p className="text-[1.6rem] leading-[2.4rem] text-[#737373]">
@@ -50,7 +50,7 @@ function ProfileDetails({
       </p>
 
       <form onSubmit={handleSubmit(onSubmitData)}>
-        <div className="flex items-center justify-between gap-[1.6rem] p-8">
+        <div className="mobile:flex-col mobile:items-stretch flex items-center justify-between gap-[1.6rem] p-8">
           <span className="w-[24rem] text-[1.6rem] leading-[2.4rem] text-[#737373]">
             Profile picture
           </span>
@@ -62,7 +62,7 @@ function ProfileDetails({
             accept="image/jpg, image/png"
             onChange={handlePhotoChange}
           />
-          <div className="flex w-full items-center gap-[2.4rem]">
+          <div className="mobile:items-stretch mobile:flex-col flex w-full items-center gap-[2.4rem]">
             <label
               htmlFor="image"
               className={`flex w-[19.2rem] cursor-pointer flex-col items-center gap-[0.8rem] rounded-[1.2rem] bg-[#efebff] bg-cover bg-center px-12 py-24 ${photo ? "text-white" : "text-[#633cff]"}`}
@@ -77,13 +77,13 @@ function ProfileDetails({
                 + Upload Image
               </span>
             </label>
-            <p className="w-[21.5rem] text-[1.2rem] leading-[1.8rem] text-[#737373]">
+            <p className="mobile:w-full w-[21.5rem] text-[1.2rem] leading-[1.8rem] text-[#737373]">
               Image must be below 1024x1024px. Use PNG or JPG format.
             </p>
           </div>
         </div>
         <div className="space-y-[1.2rem] p-8">
-          <div className="flex items-center gap-[1.6rem]">
+          <div className="mobile:flex-col mobile:items-start mobile:gap-2 flex items-center gap-[1.6rem]">
             <label
               htmlFor="firstName"
               className="w-[24rem] text-[1.6rem] leading-[2.4rem] text-[#737373]"
@@ -113,7 +113,7 @@ function ProfileDetails({
               )}
             </div>
           </div>
-          <div className="flex items-center gap-[1.6rem]">
+          <div className="mobile:flex-col mobile:items-start mobile:gap-2 flex items-center gap-[1.6rem]">
             <label
               htmlFor="lastName"
               className="w-[24rem] text-[1.6rem] leading-[2.4rem] text-[#737373]"
@@ -143,7 +143,7 @@ function ProfileDetails({
               )}
             </div>
           </div>
-          <div className="flex items-center gap-[1.6rem]">
+          <div className="mobile:flex-col mobile:items-start mobile:gap-2 flex items-center gap-[1.6rem]">
             <label
               htmlFor="email"
               className="w-[24rem] text-[1.6rem] leading-[2.4rem] text-[#737373]"
