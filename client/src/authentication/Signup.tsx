@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Logo from "../ui/Logo";
 import { UseSignup } from "./useSignup";
 import { useForm } from "react-hook-form";
 import validator from "validator";
@@ -34,11 +33,15 @@ function Signup() {
   }
 
   return (
-    <section className="flex min-h-[100dvh] items-center justify-center">
-      <section className="flex w-full max-w-[50rem] flex-col items-center justify-center">
-        <Logo />
-        <div className="mt-[5.1rem] self-stretch p-16">
-          <h1 className="pb-0.8rem text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
+    <section className="flex min-h-[100dvh] items-center justify-center py-8">
+      <section className="mobile:items-start flex w-full max-w-[50rem] flex-col items-center justify-center">
+        <img
+          src="./logo-devlinks-large.svg"
+          alt="logo"
+          className="px-[3.2rem]"
+        />
+        <div className="mobile:mt-0 mobile:px-[3.2rem] mt-[5.1rem] self-stretch p-16">
+          <h1 className="pb-0.8rem mobile:text-[2.4rem] mobile:leading-[3.6rem] text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
             Create account
           </h1>
           <h2 className="pb-16 text-[1.6rem] leading-[2.4rem] text-[#737373]">
