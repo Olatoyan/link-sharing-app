@@ -4,10 +4,14 @@ import { getBgColor, getCorrespondingLogo } from "../utils/helper";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { useGetOfflineLinks } from "./useGetOfflineLinks";
 import { useGetOfflineUser } from "./useGetOfflineUser";
+import { HiOutlineLink } from "react-icons/hi";
 import Loader from "./Loader";
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 function PreviewPage() {
+  const [isCopied, setIsCopied] = useState(false);
+
   const { isOfflineLinksPending, offlineLinks } = useGetOfflineLinks();
   const { isOfflineUserPending, offlineUser } = useGetOfflineUser();
 
@@ -18,6 +22,15 @@ function PreviewPage() {
   const token = Cookies.get("jwt");
   console.log({ userId, userMail, token });
 
+  function handleClipboardCopy() {
+    navigator.clipboard.writeText(window.location.href);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 3000);
+  }
+
   if (isOfflineLinksPending || isOfflineUserPending) return <Loader />;
 
   if (!offlineUser && !offlineLinks) return navigate("/login");
@@ -27,7 +40,7 @@ function PreviewPage() {
   console.log(links);
 
   return (
-    <section className="relative">
+    <section className="relative min-h-[100dvh]">
       <div className="h-[35rem] rounded-[0_0_3.2rem_3.2rem] bg-[#633cff]"></div>
       {userId && userMail && token && (
         <header className="absolute top-[2.4rem] mx-[2.4rem] flex w-[97%] items-center justify-between rounded-[1.2rem] bg-white px-[2.4rem] py-[1.6rem]">
@@ -37,7 +50,10 @@ function PreviewPage() {
           >
             Back to Editor
           </Link>
-          <button className="rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white">
+          <button
+            className="rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white"
+            onClick={handleClipboardCopy}
+          >
             Share Link
           </button>
         </header>
@@ -78,6 +94,15 @@ function PreviewPage() {
           ))}
         </div>
       </div>
+
+      {isCopied && (
+        <div className="absolute bottom-[3rem] left-1/2 flex max-w-[39.7rem] -translate-x-1/2 items-center gap-[0.8rem] rounded-[1.2rem] bg-[#333] px-[2.4rem] py-[1.6rem]">
+          <HiOutlineLink size={"2rem"} color={"#737373"} />
+          <p className="text-[1.6rem] font-semibold leading-[2.4rem] text-[#fafafa]">
+            The link has been copied to your clipboard!
+          </p>
+        </div>
+      )}
     </section>
   );
 }
