@@ -3,7 +3,7 @@ import EmptyLinksBox from "./EmptyLinksBox";
 import LinkItems from "./LinkItems";
 import { useLinks } from "../../contexts/LinksContext";
 
-function ProfileCustomizeLinks() {
+function ProfileCustomizeLinks({ isCreating }: { isCreating: boolean }) {
   const { links, addLink } = useLinks();
   console.log(links);
 
@@ -27,7 +27,13 @@ function ProfileCustomizeLinks() {
 
       {links.length > 0 ? (
         links.map((link, index) => (
-          <LinkItems key={index} index={index} link={link} number={index + 1} />
+          <LinkItems
+            key={index}
+            index={index}
+            link={link}
+            number={index + 1}
+            isCreating={isCreating}
+          />
         ))
       ) : (
         <EmptyLinksBox />

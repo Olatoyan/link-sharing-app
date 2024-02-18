@@ -42,7 +42,7 @@ function UsersProvider({ children }: { children: ReactNode }) {
   function updatePhoto(newPhoto: string) {
     setPhoto(newPhoto);
   }
-  const dataDb = userProfile?.data.user;
+  const dataDb = userProfile?.data?.user;
   console.log(dataDb);
   useEffect(() => {
     const firstNameDb = dataDb?.[0].firstName;

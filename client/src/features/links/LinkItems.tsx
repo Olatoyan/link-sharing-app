@@ -100,10 +100,12 @@ function LinkItems({
   link,
   number,
   index,
+  isCreating,
 }: {
   link: LinkProps;
   number: number;
   index: number;
+  isCreating: boolean;
 }) {
   const { updateLink, deleteLink } = useLinks();
   const [links, setLinks] = useState(link.name);
@@ -239,7 +241,8 @@ function LinkItems({
               id="link"
               value={linkUrl}
               onChange={handleUpdateLinkUrl}
-              className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[4rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
+              className="w-full rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white py-5 pl-[4rem] text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh disabled:cursor-not-allowed disabled:bg-[#ccc]"
+              disabled={isCreating}
             />
             <p className="absolute right-[2.5%] top-[40%] hidden text-[1.2rem] leading-[1.8rem] text-[#ff3939]">
               cant't be empty

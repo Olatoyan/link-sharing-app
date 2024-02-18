@@ -1,5 +1,5 @@
 import ProfileCustomizeLinks from "./ProfileCustomizeLinks";
-import ProfilePhoneMockup from "./ProfilePhoneMockup";
+import ProfilePhoneMockup from "../../ui/ProfilePhoneMockup";
 import { useUserLink } from "./useUserLink";
 import Loader from "../../ui/Loader";
 import Cookies from "js-cookie";
@@ -11,7 +11,7 @@ function ProfileLinksSection() {
   const { isFetching } = useUserLink();
   const { isPending } = useGetUserProfile();
   const { links } = useLinks();
-  const { createUserLink } = useCreateUserLink();
+  const { createUserLink, isCreating } = useCreateUserLink();
 
   function saveLinksToDB() {
     const userId = Cookies.get("userId");
@@ -30,9 +30,12 @@ function ProfileLinksSection() {
   return (
     <section className="grid grid-cols-2 gap-8 pt-16">
       <ProfilePhoneMockup />
-      <ProfileCustomizeLinks />
+      <ProfileCustomizeLinks isCreating={isCreating} />
 
-      <SaveBtn disabled={links.length === 0} onSave={saveLinksToDB} />
+      <SaveBtn
+        disabled={links.length === 0 || isCreating}
+        onSave={saveLinksToDB}
+      />
     </section>
   );
 }

@@ -1,6 +1,6 @@
-import { useLinks } from "../../contexts/LinksContext";
-import { useUserContext } from "../../contexts/UserProfileContext";
-import { getBgColor, getCorrespondingLogo } from "../../utils/helper";
+import { useLinks } from "../contexts/LinksContext";
+import { useUserContext } from "../contexts/UserProfileContext";
+import { getBgColor, getCorrespondingLogo } from "../utils/helper";
 import Cookies from "js-cookie";
 
 function ProfilePhoneMockup() {
@@ -33,7 +33,7 @@ function ProfilePhoneMockup() {
         ))}
       </div>
       <div className="absolute top-[22rem] flex flex-col items-center">
-        <p className="w-full bg-white text-center text-[1.8rem] font-semibold leading-[2.7rem] text-[#333]">
+        <p className="w-full min-w-[17rem] bg-white text-center text-[1.8rem] font-semibold leading-[2.7rem] text-[#333]">
           {firstName} {lastName}
         </p>
 

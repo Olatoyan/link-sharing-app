@@ -17,7 +17,7 @@ function ProfileHeader() {
   }, [location.pathname]);
 
   return (
-    <header className="flex items-center justify-between bg-white py-[2.4rem]">
+    <header className="flex items-center justify-between bg-white px-[2.4rem] py-[2.4rem]">
       <Logo />
 
       <div className="flex items-center gap-[1.6rem]">
@@ -41,7 +41,7 @@ function ProfileHeader() {
         <Logout />
         <Link
           to={`/preview/${userId}`}
-          className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
+          className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] transition-all duration-300 hover:bg-[#efebff]"
         >
           Preview
         </Link>
