@@ -38,7 +38,7 @@ function ProfilePhoneMockup() {
         </p>
 
         <p
-          className={`bg-white text-[1.4rem] leading-[2.1rem] text-[#737373] ${firstName || lastName ? "pt-0" : "pt-[2.2rem]"}`}
+          className={`bg-white text-[1.4rem] leading-[2.1rem] text-[#737373] ${firstName || lastName ? "mt-0" : "mt-[2.2rem]"}`}
         >
           {UserMail}
         </p>

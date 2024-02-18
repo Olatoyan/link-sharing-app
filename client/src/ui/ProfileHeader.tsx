@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import { HiOutlineLink } from "react-icons/hi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Logout from "./Logout";
 
 function ProfileHeader() {
   const location = useLocation();
@@ -34,12 +35,15 @@ function ProfileHeader() {
         </Link>
       </div>
 
-      <Link
-        to="/preview"
-        className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
-      >
-        Preview
-      </Link>
+      <div className="flex items-center gap-8">
+        <Logout />
+        <Link
+          to="/preview"
+          className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
+        >
+          Preview
+        </Link>
+      </div>
     </header>
   );
 }
