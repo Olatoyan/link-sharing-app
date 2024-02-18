@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    // required: [true, "Please enter your first name"],
     minLength: 3,
     maxLength: 20,
     trim: true,
@@ -14,7 +13,6 @@ const userSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    // required: [true, "Please enter your last name"],
     minLength: 3,
     maxLength: 20,
     trim: true,
@@ -50,8 +48,6 @@ const userSchema = new mongoose.Schema({
   emailVerificationToken: String,
 });
 
-// userSchema.
-
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
@@ -68,8 +64,6 @@ userSchema.methods.createEmailVerificationToken = function () {
     .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
-
-  console.log({ verificationToken }, this.emailVerificationToken);
 
   return verificationToken;
 };

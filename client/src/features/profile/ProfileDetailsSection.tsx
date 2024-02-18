@@ -1,4 +1,3 @@
-// import ProfileCustomizeLinks from "../ProfileCustomizeLinks";
 import ProfilePhoneMockup from "../../ui/ProfilePhoneMockup";
 import { useUserLink } from "../links/useUserLink";
 import Loader from "../../ui/Loader";

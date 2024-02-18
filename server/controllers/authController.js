@@ -57,9 +57,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   // Construct the verification link using the token
   const verificationLink = `localhost:5173/verify-email?token=${verificationToken}`;
-  // const verificationLink = `${req.protocol}://${req.get(
-  //   "host"
-  // )}/devlinks-api/v1/users/verify-email?token=${verificationToken}`;
 
   // Construct the email options
   const emailOptions = {

@@ -18,7 +18,6 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use("/devlinks-api/v1/users", userRouter, linkRouter);
-// app.use("/devlinks-api/v1/users", linkRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

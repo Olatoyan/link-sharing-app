@@ -15,8 +15,6 @@ const handleDuplicateFieldsDB = (err) => {
   console.log(value);
   const message = `This email is already registered. Please use a different email address.`;
 
-  // const message = `Duplicate field value: ${value}. Please use another value!`;
-
   return new AppError(message, 400);
 };
 
@@ -59,7 +57,7 @@ const sendErrorProd = (err, res) => {
     // 2) Send generic message
     res.status(500).json({
       status: "error",
-      message: "Something went very wrong",
+      message: "Something went very wrong. Or check your internet connection and try again",
     });
   }
 };

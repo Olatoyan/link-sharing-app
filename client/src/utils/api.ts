@@ -107,39 +107,7 @@ export async function getUsersLink() {
   }
 }
 
-// export async function createLink({
-//   name,
-//   link,
-// }: {
-//   name: string;
-//   link: string;
-// }) {
-//   try {
-//     const token = Cookies.get("jwt");
-//     const response = await fetch(`${BASE_URL}/links`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({
-//         name,
-//         link,
-//       }),
-//     });
-//
-//     const data = await response.json();
-//     if (data.status === "fail") {
-//       throw new Error(data.message);
-//     }
-//
-//     return data;
-//     } catch (error) {
-//       console.log(error);
-//       throw error;
-//     }
 
-// }
 
 export async function createUserLink({
   name,
