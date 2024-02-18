@@ -38,3 +38,15 @@ exports.getUserProfile = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.getUserProfileOffline = catchAsync(async (req, res, next) => {
+  const userId = req.query.id;
+  console.log(userId);
+  const users = await User.find({ _id: userId }).select("-__v");
+  console.log(users);
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: users,
+    },
+  });
+});

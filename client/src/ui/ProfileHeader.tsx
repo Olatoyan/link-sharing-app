@@ -4,11 +4,13 @@ import { HiOutlineLink } from "react-icons/hi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Logout from "./Logout";
+import Cookies from "js-cookie";
 
 function ProfileHeader() {
   const location = useLocation();
 
   const [pathname, setPathname] = useState(location.pathname);
+  const userId = Cookies.get("userId");
 
   useEffect(() => {
     setPathname(location.pathname);
@@ -38,7 +40,7 @@ function ProfileHeader() {
       <div className="flex items-center gap-8">
         <Logout />
         <Link
-          to="/preview"
+          to={`/preview/${userId}`}
           className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
         >
           Preview

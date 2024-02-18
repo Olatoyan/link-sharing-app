@@ -247,3 +247,26 @@ export async function getUserProfile() {
     throw error;
   }
 }
+
+export async function getOfflineUserProfile(id: string) {
+  try {
+    const response = await fetch(`${BASE_URL}/offline-profile?id=${id}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+export async function getOfflineUserLinks(id: string) {
+  try {
+    const response = await fetch(`${BASE_URL}/offline-links?id=${id}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

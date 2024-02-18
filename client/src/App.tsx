@@ -11,6 +11,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import AppLayout from "./ui/AppLayout";
 import ProfileDetailsSection from "./features/profile/ProfileDetailsSection";
 import { UsersProvider } from "./contexts/UserProfileContext";
+import PreviewPage from "./ui/PreviewPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +43,8 @@ function App() {
               <Route path="add-links" element={<ProfileLinksSection />} />
               <Route path="profile" element={<ProfileDetailsSection />} />
             </Route>
+            <Route path="preview/:id" element={<PreviewPage />} />
+            <Route path="*" element={<Navigate replace to="signup" />} />
           </Routes>
           <Toaster
             position="top-center"
