@@ -7,6 +7,7 @@ export function useGetOfflineUser() {
   const { data: offlineUser, isPending: isOfflineUserPending } = useQuery({
     queryKey: ["offlineUser"],
     queryFn: () => getOfflineUserProfile(id!),
+    retry: false,
   });
 
   console.log({ offlineUser });

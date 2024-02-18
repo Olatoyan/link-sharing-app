@@ -7,6 +7,7 @@ export function useGetOfflineLinks() {
   const { data: offlineLinks, isPending: isOfflineLinksPending } = useQuery({
     queryKey: ["offlineLinks", id],
     queryFn: () => getOfflineUserLinks(id!),
+    retry: false,
   });
 
   console.log({ offlineLinks });

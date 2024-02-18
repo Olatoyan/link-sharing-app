@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LinkProps } from "../contexts/LinksContext";
 import { getBgColor, getCorrespondingLogo } from "../utils/helper";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
@@ -11,12 +11,16 @@ function PreviewPage() {
   const { isOfflineLinksPending, offlineLinks } = useGetOfflineLinks();
   const { isOfflineUserPending, offlineUser } = useGetOfflineUser();
 
+  const navigate = useNavigate();
+
   const userId = Cookies.get("userId");
   const userMail = Cookies.get("userMail");
   const token = Cookies.get("jwt");
   console.log({ userId, userMail, token });
 
   if (isOfflineLinksPending || isOfflineUserPending) return <Loader />;
+
+  if (!offlineUser && !offlineLinks) return navigate("/login");
 
   const user = offlineUser.data.user[0];
   const links: LinkProps[] = offlineLinks.data.links;
