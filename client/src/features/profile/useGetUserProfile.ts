@@ -8,7 +8,5 @@ export function useGetUserProfile() {
     retry: false,
   });
 
-  console.log(userProfile);
-
   return { userProfile, isPending };
 }

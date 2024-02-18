@@ -11,19 +11,14 @@ type FormData = {
   confirmPassword: string;
 };
 function Signup() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-
   const { register, handleSubmit, getValues, formState, reset } =
     useForm<FormData>();
 
   const { errors } = formState;
 
   const { signUp, isSigningUp } = UseSignup();
-  // console.log(errors);
+
   function onSubmit(data: FormData) {
-    console.log(data);
     signUp(
       {
         email: data.email,

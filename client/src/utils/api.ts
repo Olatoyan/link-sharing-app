@@ -25,12 +25,10 @@ export async function signUp({
         confirmPassword,
       }),
     });
-    console.log(response);
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -42,12 +40,10 @@ export async function verifyEmail(token: string) {
   try {
     const response = await fetch(`${BASE_URL}/verify-email?token=${token}`);
 
-    console.log(response);
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -74,12 +70,10 @@ export async function login({
       }),
     });
 
-    console.log(response);
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     Cookies.set("jwt", data.token);
     Cookies.set("userId", data.data.user._id);
     Cookies.set("userMail", data.data.user.email);
@@ -92,7 +86,6 @@ export async function login({
 
 export async function getUsersLink() {
   const token = Cookies.get("jwt");
-  console.log({ token });
   try {
     const response = await fetch(`${BASE_URL}/links`, {
       method: "GET",
@@ -101,12 +94,11 @@ export async function getUsersLink() {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
+
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -135,12 +127,12 @@ export async function getUsersLink() {
 //         link,
 //       }),
 //     });
-//     console.log(response);
+//
 //     const data = await response.json();
 //     if (data.status === "fail") {
 //       throw new Error(data.message);
 //     }
-//     console.log(data);
+//
 //     return data;
 //     } catch (error) {
 //       console.log(error);
@@ -173,12 +165,10 @@ export async function createUserLink({
       }),
     });
 
-    console.log(response);
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -212,12 +202,10 @@ export async function updateUserProfile({
       }),
     });
 
-    console.log(response);
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -235,12 +223,11 @@ export async function getUserProfile() {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
+
     const data = await response.json();
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -255,7 +242,6 @@ export async function getOfflineUserProfile(id: string) {
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
 
     return data;
   } catch (error) {
@@ -270,7 +256,6 @@ export async function getOfflineUserLinks(id: string) {
     if (data.status === "fail") {
       throw new Error(data.message);
     }
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

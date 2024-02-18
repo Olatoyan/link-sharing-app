@@ -10,6 +10,5 @@ export function useGetOfflineLinks() {
     retry: false,
   });
 
-  console.log({ offlineLinks });
   return { offlineLinks, isOfflineLinksPending };
 }

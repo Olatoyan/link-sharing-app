@@ -20,7 +20,6 @@ function PreviewPage() {
   const userId = Cookies.get("userId");
   const userMail = Cookies.get("userMail");
   const token = Cookies.get("jwt");
-  console.log({ userId, userMail, token });
 
   function handleClipboardCopy() {
     navigator.clipboard.writeText(window.location.href);
@@ -33,11 +32,10 @@ function PreviewPage() {
 
   if (isOfflineLinksPending || isOfflineUserPending) return <Loader />;
 
-  if (!offlineUser && !offlineLinks) return navigate("/login");
+  if (!offlineUser && !offlineLinks) navigate("/login");
 
   const user = offlineUser.data.user[0];
   const links: LinkProps[] = offlineLinks.data.links;
-  console.log(links);
 
   return (
     <section className="relative min-h-[100dvh]">

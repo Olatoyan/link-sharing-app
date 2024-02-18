@@ -15,7 +15,7 @@ function ProfileLinksSection() {
 
   function saveLinksToDB() {
     const userId = Cookies.get("userId");
-    // console.log(userId);
+
     links.forEach((link) => {
       createUserLink({
         name: link.name,

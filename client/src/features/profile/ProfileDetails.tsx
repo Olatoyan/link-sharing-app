@@ -16,6 +16,7 @@ type ProfileDetailsProps = {
   errors: FieldErrors<FormData>;
   handleSubmit: UseFormHandleSubmit<FormData>;
   isUpdating: boolean;
+  onSubmitData: (data: FormData) => void;
 };
 
 function ProfileDetails({
@@ -23,27 +24,21 @@ function ProfileDetails({
   errors,
   handleSubmit,
   isUpdating,
+  onSubmitData,
 }: ProfileDetailsProps) {
   const { updatePhoto, photo, firstName, lastName } = useUserContext();
 
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files![0]);
     const newPhoto = event.target.files![0];
-    console.log(newPhoto);
 
     const reader = new FileReader();
     reader.readAsDataURL(newPhoto);
     reader.onloadend = () => {
       updatePhoto(reader.result as string);
-      console.log(reader.result);
     };
   };
 
   const UserMail = Cookie.get("userMail");
-
-  function onSubmitData(data: FormData): void {
-    console.log(data);
-  }
 
   return (
     <div className="border-b border-solid border-[#d9d9d9] bg-white p-16 pb-0">
@@ -167,6 +162,7 @@ function ProfileDetails({
             </div>
           </div>
         </div>
+        <button></button>
       </form>
     </div>
   );

@@ -8,13 +8,11 @@ export function useLogin() {
   const { mutate: loginFn, isPending: isLoggingIn } = useMutation({
     mutationFn: (details: { email: string; password: string }) =>
       login(details),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       toast.success("Login Successful");
       navigate("/add-links");
     },
     onError: (error) => {
-      console.log(error);
       toast.error(error.message);
     },
   });

@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 function ProfilePhoneMockup() {
   const { links } = useLinks();
   const { firstName, lastName, photo } = useUserContext();
-  console.log(links);
 
   const UserMail = Cookies.get("userMail");
 

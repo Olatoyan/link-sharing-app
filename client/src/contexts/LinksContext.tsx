@@ -37,7 +37,6 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const userLinks: LinkProps[] = user?.data?.links;
-    console.log(userLinks);
     if (!isFetching) {
       userLinks?.forEach((user) => {
         addLink(user.name, user.link);

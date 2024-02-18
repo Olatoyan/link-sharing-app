@@ -17,7 +17,6 @@ function Login() {
   const { isLoggingIn, loginFn } = useLogin();
 
   function onSubmit(data: FormData) {
-    console.log(data);
     loginFn({
       email: data.email,
       password: data.password,

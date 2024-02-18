@@ -10,6 +10,5 @@ export function useGetOfflineUser() {
     retry: false,
   });
 
-  console.log({ offlineUser });
   return { offlineUser, isOfflineUserPending };
 }

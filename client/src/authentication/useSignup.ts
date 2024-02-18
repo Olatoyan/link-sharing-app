@@ -10,7 +10,6 @@ export function UseSignup() {
       confirmPassword: string;
     }) => signUpApi(details),
     onSuccess: (data) => {
-      console.log(data);
       toast.success(data.message);
     },
     onError: (error) => {

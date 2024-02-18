@@ -25,7 +25,6 @@ function ProfileDetailsSection() {
   const { updateProfile, isUpdating } = useUpdateProfile();
 
   function onSubmitData(data: FormData): void {
-    console.log(data);
     updateProfile(
       {
         firstName: data.firstName,
@@ -51,6 +50,7 @@ function ProfileDetailsSection() {
         errors={errors}
         handleSubmit={handleSubmit}
         isUpdating={isUpdating}
+        onSubmitData={onSubmitData}
       />
 
       <SaveBtn disabled={false} onSave={handleSubmit(onSubmitData)} />

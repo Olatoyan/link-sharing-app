@@ -43,7 +43,7 @@ function UsersProvider({ children }: { children: ReactNode }) {
     setPhoto(newPhoto);
   }
   const dataDb = userProfile?.data?.user;
-  console.log(dataDb);
+
   useEffect(() => {
     const firstNameDb = dataDb?.[0].firstName;
     const lastNameDb = dataDb?.[0].lastName;
@@ -52,7 +52,6 @@ function UsersProvider({ children }: { children: ReactNode }) {
     setFirstName(firstNameDb || "");
     setLastName(lastNameDb || "");
     setPhoto(photoDb || "");
-    console.log(firstNameDb, lastNameDb, photoDb);
   }, [dataDb]);
 
   return (

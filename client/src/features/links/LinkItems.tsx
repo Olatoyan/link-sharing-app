@@ -123,8 +123,6 @@ function LinkItems({
 
   function handleUpdateLinkUrl(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
-    // Check if the new value is longer than the current value
-    // console.log(linkUrl.length);
     if (value.length >= getRightProfileUrl(links)!.length) {
       setLinkUrl(value);
       updateLink(index, { link: value, name: links });

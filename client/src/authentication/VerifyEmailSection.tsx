@@ -10,9 +10,8 @@ function VerifyEmailSection() {
   const token = searchParams.get("token");
 
   const { verifyEmailFn } = useVerifyEmail();
-  console.log(token);
+
   useEffect(() => {
-    console.log("hello");
     if (token)
       verifyEmailFn(token, {
         onSuccess: () => {

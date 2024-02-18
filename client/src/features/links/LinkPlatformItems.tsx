@@ -2,6 +2,16 @@ import { motion } from "framer-motion";
 import { useLinks } from "../../contexts/LinksContext";
 import { getRightProfileUrl } from "../../utils/helper";
 
+type LinkProps = {
+  name: string;
+  links: string;
+  icon: JSX.Element;
+  index: number;
+  setLinks: React.Dispatch<React.SetStateAction<string>>;
+  setIsLinkBoxOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setLinkUrl: React.Dispatch<React.SetStateAction<string>>;
+};
+
 function LinkPlatformItems({
   name,
   icon,
@@ -10,15 +20,7 @@ function LinkPlatformItems({
   setLinks,
   setIsLinkBoxOpen,
   setLinkUrl,
-}: {
-  name: string;
-  links: string;
-  icon: JSX.Element;
-  index: number;
-  setLinks: React.Dispatch<React.SetStateAction<string>>;
-  setIsLinkBoxOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setLinkUrl: React.Dispatch<React.SetStateAction<string>>;
-}) {
+}: LinkProps) {
   const { updateLink } = useLinks();
 
   function handleChangePlatform() {
