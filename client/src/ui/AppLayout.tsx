@@ -3,7 +3,7 @@ import ProfileHeader from "./ProfileHeader";
 
 function AppLayout() {
   return (
-    <main>
+    <main className="my-[2.4rem]">
       <ProfileHeader />
 
       <Outlet />

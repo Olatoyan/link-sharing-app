@@ -20,33 +20,33 @@ function ProfileHeader() {
     <header className="flex items-center justify-between bg-white px-[2.4rem] py-[2.4rem]">
       <Logo />
 
-      <div className="tablet:gap-4 flex items-center gap-[1.6rem]">
+      <div className="flex items-center gap-[1.6rem] tablet:gap-4">
         <Link
           to="/add-links"
-          className={`mobile:px-[1.6rem] flex items-center gap-[0.8rem] rounded-[0.8rem] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] ${pathname === "/add-links" ? "bg-[#efebff] text-[#633cff]" : "text-[#737373] hover:text-[#633cff]"}`}
+          className={`flex items-center gap-[0.8rem] rounded-[0.8rem] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] mobile:px-[1.6rem] ${pathname === "/add-links" ? "bg-[#efebff] text-[#633cff]" : "text-[#737373] hover:text-[#633cff]"}`}
         >
           <HiOutlineLink size={"2rem"} />
           <p className="mobile:hidden">Links</p>
         </Link>
         <Link
           to="/profile"
-          className={`mobile:px-[1.6rem] flex items-center gap-[0.8rem] rounded-[0.8rem] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] ${pathname === "/profile" ? "bg-[#efebff] text-[#633cff]" : "text-[#737373] hover:text-[#633cff]"}`}
+          className={`flex items-center gap-[0.8rem] rounded-[0.8rem] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] mobile:px-[1.6rem] ${pathname === "/profile" ? "bg-[#efebff] text-[#633cff]" : "text-[#737373] hover:text-[#633cff]"}`}
         >
           <FaRegUserCircle size={"2rem"} />
           <p className="mobile:hidden">Profile Details</p>
         </Link>
       </div>
 
-      <div className="tablet:gap-4 flex items-center gap-8">
+      <div className="flex items-center gap-8 tablet:gap-4">
         <Logout />
         <Link
           to={`/preview/${userId}`}
-          className="mobile:px-[1.6rem] rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] transition-all duration-300 hover:bg-[#efebff]"
+          className="rounded-[0.8rem] border border-solid border-[#633cff] px-11 py-4 text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] transition-all duration-300 hover:bg-[#efebff] mobile:px-[1.6rem]"
         >
           <img
             src="./icon-preview-header.svg"
             alt="preview header"
-            className="mobile:block hidden"
+            className="hidden mobile:block"
           />
           <span className="mobile:hidden">Preview</span>
         </Link>

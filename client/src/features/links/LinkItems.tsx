@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineLink } from "react-icons/hi";
 import { PiGithubLogoFill, PiDevToLogoFill } from "react-icons/pi";
@@ -146,9 +146,13 @@ function LinkItems({
   const { attributes: draggableAttributes } = useDraggable({
     id: `item-${id}`,
   });
+
+  useEffect(() => {
+    setLinkUrl(link.link || getRightProfileUrl(link.name)!);
+  }, [link]);
   return (
     <div
-      className="rounded-[1.2rem] bg-[#fafafa] p-8"
+      className="mb-[2.4rem] touch-none rounded-[1.2rem] bg-[#fafafa] p-8"
       ref={setNodeRef}
       style={style}
     >
@@ -157,7 +161,7 @@ function LinkItems({
           <img
             src="icon-drag-and-drop.svg"
             alt="icon"
-            className="h-[2.4rem] w-[1.2rem] cursor-grab"
+            className="h-[2.4rem] w-[1.2rem] cursor-grab touch-none mobile:hidden"
             {...draggableAttributes}
             {...listeners}
           />
