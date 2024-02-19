@@ -35,13 +35,14 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
     setLinks(links.filter((_, i) => i !== index));
   }
 
+  const userLinks: LinkProps[] = user?.data?.links;
   useEffect(() => {
-    const userLinks: LinkProps[] = user?.data?.links;
-
+    console.log("hello");
+    console.log({ userLinks });
     userLinks?.forEach((user) => {
       addLink(user.name, user.link);
     });
-  }, [user]);
+  }, [userLinks]);
 
   return (
     <LinksContext.Provider value={{ links, addLink, updateLink, deleteLink }}>
