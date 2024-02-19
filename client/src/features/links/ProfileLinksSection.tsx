@@ -15,9 +15,9 @@ function ProfileLinksSection() {
 
   function saveLinksToDB() {
     const userId = Cookies.get("userId");
-
     links.forEach((link) => {
       createUserLink({
+        id: link.id,
         name: link.name,
         link: link.link,
         user: userId!,
@@ -28,7 +28,7 @@ function ProfileLinksSection() {
   if (isFetching || isPending) return <Loader />;
 
   return (
-    <section className="tablet:grid-cols-1 tablet:pt-0 grid grid-cols-2 gap-8 pt-16">
+    <section className="grid grid-cols-2 gap-8 pt-16 tablet:grid-cols-1 tablet:pt-0">
       <ProfilePhoneMockup />
       <ProfileCustomizeLinks isCreating={isCreating} />
 

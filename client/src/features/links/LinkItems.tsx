@@ -23,6 +23,10 @@ import LinkPlatformItems from "./LinkPlatformItems";
 import { LinkProps, useLinks } from "../../contexts/LinksContext";
 import { getCorrespondingLogo, getRightProfileUrl } from "../../utils/helper";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { useDraggable } from "@dnd-kit/core";
+
 const socialPlatforms = [
   {
     name: "Github",
@@ -118,6 +122,7 @@ function LinkItems({
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     event.preventDefault();
+    event.stopPropagation();
     setIsLinkBoxOpen((prev) => !prev);
   }
 
@@ -129,12 +134,37 @@ function LinkItems({
     }
   }
 
+  const { id } = link;
+
+  const { listeners, setNodeRef, transform, transition } = useSortable({ id });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+
+  const { attributes: draggableAttributes } = useDraggable({
+    id: `item-${id}`,
+  });
   return (
-    <div className="rounded-[1.2rem] bg-[#fafafa] p-8">
+    <div
+      className="rounded-[1.2rem] bg-[#fafafa] p-8"
+      ref={setNodeRef}
+      style={style}
+    >
       <div className="flex items-center justify-between">
-        <h3 className="text-[1.6rem] font-bold leading-[2.4rem] text-[#737373]">
-          Link #{number}
-        </h3>
+        <div className="flex items-center gap-4">
+          <img
+            src="icon-drag-and-drop.svg"
+            alt="icon"
+            className="h-[2.4rem] w-[1.2rem] cursor-grab"
+            {...draggableAttributes}
+            {...listeners}
+          />
+          <h3 className="text-[1.6rem] font-bold leading-[2.4rem] text-[#737373]">
+            Link #{number}
+          </h3>
+        </div>
         <p
           className="cursor-pointer text-[1.6rem] leading-[2.4rem] text-[#737373]"
           onClick={() => deleteLink(index)}
@@ -154,7 +184,8 @@ function LinkItems({
 
           <div className="relative">
             <button
-              className="flex w-full items-center gap-5 rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
+              type="button"
+              className="z-[999] flex w-full items-center gap-5 rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white px-6 py-5 text-[1.6rem] leading-[2.4rem] text-[#333] caret-[#633cff] outline-none focus:border-[#633cff] focus:shadow-purple-sh"
               onClick={handlePlatformChange}
             >
               {getCorrespondingLogo(link.name)}

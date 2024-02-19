@@ -3,11 +3,12 @@ const Link = require("../model/linkModel");
 const catchAsync = require("./../utils/catchAsync");
 
 exports.addLink = catchAsync(async (req, res, next) => {
-  const { name, link } = req.body;
+  const { id, name, link } = req.body;
   // Delete existing links corresponding to the user
   await Link.deleteMany({ user: req.user._id });
 
   const newLink = await Link.create({
+    id,
     name,
     link,
     user: req.user._id,
