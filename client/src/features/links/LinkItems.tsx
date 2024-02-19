@@ -163,9 +163,9 @@ function LinkItems({
                 src="./icon-chevron-down.svg"
                 alt="chevron down"
                 className="ml-auto transition-none"
-                initial={{ rotate: isLinkBoxOpen ? 0 : 180 }}
+                initial={{ rotate: 0 }}
                 animate={{ rotate: isLinkBoxOpen ? 180 : 0 }}
-                exit={{ rotate: isLinkBoxOpen ? 0 : 180 }}
+                exit={{ rotate: 0 }}
                 transition={{
                   type: "spring",
                 }}

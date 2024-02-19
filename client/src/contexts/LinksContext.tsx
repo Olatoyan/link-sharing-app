@@ -17,7 +17,7 @@ const LinksContext = createContext<LinksState | null>(null);
 
 function LinksProvider({ children }: { children: React.ReactNode }) {
   const [links, setLinks] = useState<LinkProps[]>([]);
-  const { user, isFetching } = useUserLink();
+  const { user } = useUserLink();
 
   function addLink(name: string, link: string) {
     setLinks((prevLinks) => [...prevLinks, { name, link }]);
@@ -37,12 +37,11 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const userLinks: LinkProps[] = user?.data?.links;
-    if (!isFetching) {
-      userLinks?.forEach((user) => {
-        addLink(user.name, user.link);
-      });
-    }
-  }, [isFetching, user]);
+
+    userLinks?.forEach((user) => {
+      addLink(user.name, user.link);
+    });
+  }, [user]);
 
   return (
     <LinksContext.Provider value={{ links, addLink, updateLink, deleteLink }}>
