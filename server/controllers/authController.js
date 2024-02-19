@@ -5,7 +5,7 @@ const User = require("./../model/userModel");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("./../utils/email");
 const crypto = require("crypto");
-
+const { Resend } = require("resend");
 const signToken = (id) => {
   return jwt.sign(
     {
@@ -56,13 +56,23 @@ exports.signup = catchAsync(async (req, res, next) => {
   const verificationToken = newUser.createEmailVerificationToken();
 
   // Construct the verification link using the token
-  const verificationLink = `localhost:5173/verify-email?token=${verificationToken}`;
+  const verificationLink = `https://toyan-devlinks.netlify.app/verify-email?token=${verificationToken}`;
 
   // Construct the email options
   const emailOptions = {
     email: req.body.email,
-    subject: "Email Verification",
-    message: `Please click the following link to verify your email address: <a href="${verificationLink}">Verify Email</a>`,
+    subject: "Welcome to Toyan DevLinks! Confirm Your Email Address",
+    message: `
+    <div style="background-color: #fafafa; padding: 20px; border-radius: 10px;">
+    <h1 style="color: #633cff; margin-bottom: 20px;">Welcome aboard!</h1>
+    <p style="color: #737373; margin-bottom: 15px;">Greetings from Toyan DevLinks! We're thrilled to have you join our community.</p>
+    <p style="color: #737373; margin-bottom: 15px;">To complete your registration and unlock all the amazing features, please click the button below to verify your email address:</p>
+    <p style="text-align: center; margin-bottom: 20px;"><a href="${verificationLink}" style="background-color: #633cff; color: #fafafa; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Verify Email Address</a></p>
+    <p style="color: #737373; margin-bottom: 15px;">Alternatively, you can copy and paste the following link into your browser:</p>
+    <p style="color: #737373; margin-bottom: 15px;"><em>${verificationLink}</em></p>
+    <p style="color: #737373; font-weight: bold;">If you didn't sign up for Toyan DevLinks, no worries! Simply ignore this email.</p>
+  </div>
+    `,
   };
 
   // Send verification email
