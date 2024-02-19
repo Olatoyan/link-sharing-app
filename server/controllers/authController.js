@@ -56,7 +56,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const verificationToken = newUser.createEmailVerificationToken();
 
   // Construct the verification link using the token
-  const verificationLink = `https://toyan-devlinks.netlify.app/verify-email?token=${verificationToken}`;
+  const verificationLink = `https://toyan-devlinks.vercel.app/verify-email?token=${verificationToken}`;
 
   // Construct the email options
   const emailOptions = {
