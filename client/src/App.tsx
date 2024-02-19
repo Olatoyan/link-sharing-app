@@ -28,7 +28,11 @@ function App() {
       <UsersProvider>
         <LinksProvider>
           <Routes>
-            <Route path="/" index element={<Navigate replace to="signup" />} />
+            <Route
+              path="/"
+              index
+              element={<Navigate replace to="add-links" />}
+            />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
             <Route path="verify-email" element={<VerifyEmailSection />} />

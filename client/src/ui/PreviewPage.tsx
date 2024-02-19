@@ -38,28 +38,28 @@ function PreviewPage() {
   const links: LinkProps[] = offlineLinks.data.links;
 
   return (
-    <section className="mobile:bg-white relative min-h-[100dvh]">
-      <div className="mobile:hidden h-[35rem] rounded-[0_0_3.2rem_3.2rem] bg-[#633cff]"></div>
+    <section className="relative min-h-[100dvh] mobile:bg-white">
+      <div className="h-[35rem] rounded-[0_0_3.2rem_3.2rem] bg-[#633cff] mobile:hidden"></div>
       {userId && userMail && token && (
-        <header className="mobile:static mobile:mx-0 absolute top-[2.4rem] mx-[2.4rem] flex w-[97%] items-center justify-between rounded-[1.2rem] bg-white px-[2.4rem] py-[1.6rem]">
+        <header className="absolute top-[2.4rem] mx-[2.4rem] flex w-[97%] items-center justify-between rounded-[1.2rem] bg-white px-[2.4rem] py-[1.6rem] mobile:static mobile:mx-0">
           <Link
             to="/add-links"
-            className="mobile:px-8 rounded-[0.8rem] border border-solid border-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff]"
+            className="rounded-[0.8rem] border border-solid border-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-[#633cff] mobile:px-8"
           >
             Back to Editor
           </Link>
           <button
-            className="mobile:px-8 rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white"
+            className="rounded-[0.8rem] bg-[#633cff] px-[2.7rem] py-[1.1rem] text-[1.6rem] font-semibold leading-[2.4rem] text-white mobile:px-8"
             onClick={handleClipboardCopy}
           >
             Share Link
           </button>
         </header>
       )}
-      <div className="mobile:static mobile:translate-x-0 mobile:shadow-none mobile:w-full absolute left-1/2 top-[20rem] flex w-[39.4rem] -translate-x-1/2 flex-col items-center rounded-[2.4rem] bg-white px-[5.6rem] py-[4.8rem] shadow-dark-sh">
-        {user.photo ? (
+      <div className="absolute left-1/2 top-[20rem] flex w-[39.4rem] -translate-x-1/2 flex-col items-center rounded-[2.4rem] bg-white px-[5.6rem] py-[4.8rem] shadow-dark-sh mobile:static mobile:w-full mobile:translate-x-0 mobile:shadow-none">
+        {user?.photo ? (
           <img
-            src={user.photo}
+            src={user?.photo}
             alt="image"
             className="h-[10.4rem] w-[10.4rem] rounded-[10.4rem] border-[4px] border-solid border-[#633cff] object-cover"
           />
@@ -68,10 +68,10 @@ function PreviewPage() {
         )}
         <div className="space-y-[0.8rem] pb-[5.6rem] pt-[2.4rem] text-center">
           <h1 className="text-[3.2rem] font-bold leading-[4.8rem] text-[#333]">
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </h1>
           <h3 className="text-[1.6rem] leading-[2.4rem] text-[#737373]">
-            {user.email}
+            {user?.email}
           </h3>
         </div>
 
@@ -94,7 +94,7 @@ function PreviewPage() {
       </div>
 
       {isCopied && (
-        <div className="absolute bottom-[3rem] left-1/2 flex max-w-[39.7rem] -translate-x-1/2 items-center gap-[0.8rem] rounded-[1.2rem] bg-[#333] px-[2.4rem] py-[1.6rem]">
+        <div className="absolute bottom-[3rem] left-1/2 flex w-full max-w-[39.7rem] -translate-x-1/2 items-center gap-[0.8rem] rounded-[1.2rem] bg-[#333] px-[2.4rem] py-[1.6rem]">
           <HiOutlineLink size={"2rem"} color={"#737373"} />
           <p className="text-[1.6rem] font-semibold leading-[2.4rem] text-[#fafafa]">
             The link has been copied to your clipboard!
