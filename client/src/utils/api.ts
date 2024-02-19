@@ -1,5 +1,5 @@
-const BASE_URL = "http://127.0.0.1:5000/devlinks-api/v1/users";
-// const BASE_URL = "https://toyan-devlinks-api.vercel.app/devlinks-api/v1/users";
+// const BASE_URL = "http://127.0.0.1:5000/devlinks-api/v1/users";
+const BASE_URL = "https://toyan-devlinks-api.vercel.app/devlinks-api/v1/users";
 
 import Cookies from "js-cookie";
 
