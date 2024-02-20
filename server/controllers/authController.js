@@ -5,7 +5,7 @@ const User = require("./../model/userModel");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("./../utils/email");
 const crypto = require("crypto");
-const { Resend } = require("resend");
+
 const signToken = (id) => {
   return jwt.sign(
     {
