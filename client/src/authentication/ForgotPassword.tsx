@@ -9,7 +9,7 @@ type ForgotPasswordFormData = {
 };
 
 function ForgotPassword() {
-  const { register, handleSubmit, formState } =
+  const { register, handleSubmit, formState, reset } =
     useForm<ForgotPasswordFormData>();
 
   const { errors } = formState;
@@ -18,6 +18,7 @@ function ForgotPassword() {
 
   function onSubmit(data: ForgotPasswordFormData) {
     forgotPassword(data.email);
+    reset();
   }
 
   return (

@@ -193,17 +193,15 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const resetPasswordToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordLink = `http://localhost:5173/reset-password?token=${resetPasswordToken}`;
-  // const resetPasswordLink = `https://toyan-devlinks.vercel.app/reset-password?token=${resetPasswordToken}`;
+  // const resetPasswordLink = `http://localhost:5173/reset-password?token=${resetPasswordToken}`;
+  const resetPasswordLink = `https://toyan-devlinks.vercel.app/reset-password?token=${resetPasswordToken}`;
 
   const emailOptions = {
     email: req.body.email,
     subject: "Toyan DevLinks - Reset Password (Expires in 10 Minutes)",
     message: `
     <div style="background-color: #fafafa; padding: 20px; border-radius: 10px;">
-    <h1 style="color: #633cff; margin-bottom: 20px;">Hello ${
-      user.firstName || user.email
-    }!</h1>
+    <h1 style="color: #633cff; margin-bottom: 20px;">Hello there!</h1>
     <p style="color: #737373; margin-bottom: 15px;">You are receiving this email because you (or someone else) has requested to reset the password for your account.</p>
     <p style="color: #737373; margin-bottom: 15px;">To proceed with the password reset process, please click on the button below:</p>
     <p style="text-align: center; margin-bottom: 20px;">
