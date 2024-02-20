@@ -83,6 +83,58 @@ export async function login({
   }
 }
 
+export async function forgotPassword(email: string) {
+  try {
+    const response = await fetch(`${BASE_URL}/forgotPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    console.log(data);
+    Cookies.set("forgotMail", email);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function resetPassword({
+  token,
+  password,
+  confirmPassword,
+}: {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  try {
+    const response = await fetch(`${BASE_URL}/resetPassword?token=${token}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password, confirmPassword }),
+    });
+    const data = await response.json();
+
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getUsersLink() {
   const token = Cookies.get("jwt");
   try {

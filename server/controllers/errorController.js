@@ -6,20 +6,15 @@ const handleCastErrorDB = (err) => {
 };
 
 const handleDuplicateFieldsDB = (err) => {
-  console.log(err);
   const fields = Object.keys(err.keyValue)[0];
-  console.log(fields);
-  console.log(err.keyValue);
   const value = err.keyValue[fields];
 
-  console.log(value);
   const message = `This email is already registered. Please use a different email address.`;
 
   return new AppError(message, 400);
 };
 
 const handleValidationErrorDB = (err, res) => {
-  console.log(err);
   const errors = Object.values(err.errors).map((el) => el.message);
 
   const message = `Invalid input data. ${errors.join(". ")}`;
@@ -57,7 +52,8 @@ const sendErrorProd = (err, res) => {
     // 2) Send generic message
     res.status(500).json({
       status: "error",
-      message: "Something went very wrong. Or check your internet connection and try again",
+      message:
+        "Something went very wrong. Or check your internet connection and try again",
     });
   }
 };

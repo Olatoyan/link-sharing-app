@@ -15,6 +15,8 @@ import { Toaster } from "react-hot-toast";
 
 const Signup = lazy(() => import("./authentication/Signup"));
 const Login = lazy(() => import("./authentication/Login"));
+const ForgotPassword = lazy(() => import("./authentication/ForgotPassword"));
+const ResetPassword = lazy(() => import("./authentication/ResetPassword"));
 const VerifyEmailSection = lazy(
   () => import("./authentication/VerifyEmailSection"),
 );
@@ -49,6 +51,8 @@ function App() {
               />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="reset-password" element={<ResetPassword />} />
               <Route path="verify-email" element={<VerifyEmailSection />} />
 
               <Route

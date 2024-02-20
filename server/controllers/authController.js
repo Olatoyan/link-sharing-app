@@ -181,3 +181,83 @@ exports.protected = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(
+      new AppError("We can't find a user with that email address.", 404)
+    );
+  }
+
+  const resetPasswordToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  const resetPasswordLink = `http://localhost:5173/reset-password?token=${resetPasswordToken}`;
+  // const resetPasswordLink = `https://toyan-devlinks.vercel.app/reset-password?token=${resetPasswordToken}`;
+
+  const emailOptions = {
+    email: req.body.email,
+    subject: "Toyan DevLinks - Reset Password (Expires in 10 Minutes)",
+    message: `
+    <div style="background-color: #fafafa; padding: 20px; border-radius: 10px;">
+    <h1 style="color: #633cff; margin-bottom: 20px;">Hello ${
+      user.firstName || user.email
+    }!</h1>
+    <p style="color: #737373; margin-bottom: 15px;">You are receiving this email because you (or someone else) has requested to reset the password for your account.</p>
+    <p style="color: #737373; margin-bottom: 15px;">To proceed with the password reset process, please click on the button below:</p>
+    <p style="text-align: center; margin-bottom: 20px;">
+      <a href="${resetPasswordLink}" style="background-color: #633cff; color: #fafafa; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Reset Password</a>
+    </p>
+    <p style="color: #737373; margin-bottom: 15px;">Alternatively, you can copy and paste the following link into your browser:</p>
+    <p style="color: #737373; margin-bottom: 15px;"><em>${resetPasswordLink}</em></p>
+    <p style="color: #737373; margin-bottom: 15px;">If you did not initiate this request, please disregard this email. Your account's password will remain unchanged.</p>
+    <p style="color: #737373; margin-bottom: 15px;">Please note that this link expires in 10 minutes for security purposes.</p>
+  </div>
+    `,
+  };
+
+  try {
+    await sendEmail(emailOptions);
+    res.status(200).json({
+      status: "success",
+      message: "Password reset email sent. Please check your email.",
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(
+      new AppError(
+        "There was an error sending the password reset email. Please try again later.",
+        500
+      )
+    );
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(req.query.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(
+      new AppError("Password reset token is invalid or has expired.", 400)
+    );
+  }
+
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  createSendToken(user, 200, res);
+});
