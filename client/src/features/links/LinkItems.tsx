@@ -153,7 +153,7 @@ function LinkItems({
   }, [link]);
   return (
     <div
-      className="mb-[2.4rem] touch-none rounded-[1.2rem] bg-[#fafafa] p-8"
+      className="mb-[2.4rem] rounded-[1.2rem] bg-[#fafafa] p-8"
       ref={setNodeRef}
       style={style}
     >
