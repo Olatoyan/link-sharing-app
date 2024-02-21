@@ -24,7 +24,6 @@ function LinkPlatformItems({
   const { updateLink } = useLinks();
 
   function handleChangePlatform() {
-    console.log(getRightProfileUrl(name));
     setLinks(name);
     setIsLinkBoxOpen(false);
     updateLink(index, { name, link: getRightProfileUrl(name)! });

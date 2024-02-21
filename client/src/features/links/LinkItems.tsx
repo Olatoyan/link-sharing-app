@@ -128,7 +128,6 @@ function LinkItems({
 
   function handleUpdateLinkUrl(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
-    console.log(links);
     if (value.length >= getRightProfileUrl(link.name)!.length) {
       setLinkUrl(value);
       updateLink(index, { link: value, name: links });
@@ -209,52 +208,52 @@ function LinkItems({
               />
             </button>
 
-            {/* <AnimatePresence mode="wait"> */}
-            {isLinkBoxOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  duration: 0.4,
-                  ease: "easeInOut",
-                  type: "spring",
-                }}
-                className="absolute top-[6rem] z-[3] flex  h-[30rem] w-full flex-col gap-[1.2rem] overflow-y-scroll rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
-              >
+            <AnimatePresence mode="wait">
+              {isLinkBoxOpen && (
                 <motion.div
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  variants={{
-                    animate: {
-                      transition: { staggerChildren: 0.1 },
-                    },
-                    exit: {
-                      transition: {
-                        staggerChildren: 0.05,
-                        staggerDirection: -1,
-                      },
-                    },
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: "easeInOut",
+                    type: "spring",
                   }}
-                  className="flex flex-col gap-[1.2rem]"
+                  className="absolute top-[6rem] z-[3] flex  h-[30rem] w-full flex-col gap-[1.2rem] overflow-y-scroll rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
                 >
-                  {socialPlatforms.map((platform) => (
-                    <LinkPlatformItems
-                      index={index}
-                      name={platform.name}
-                      icon={platform.icon}
-                      key={platform.name}
-                      setLinks={setLinks}
-                      setIsLinkBoxOpen={setIsLinkBoxOpen}
-                      links={links}
-                      setLinkUrl={setLinkUrl}
-                    />
-                  ))}
+                  <motion.div
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    variants={{
+                      animate: {
+                        transition: { staggerChildren: 0.1 },
+                      },
+                      exit: {
+                        transition: {
+                          staggerChildren: 0.05,
+                          staggerDirection: -1,
+                        },
+                      },
+                    }}
+                    className="flex flex-col gap-[1.2rem]"
+                  >
+                    {socialPlatforms.map((platform) => (
+                      <LinkPlatformItems
+                        index={index}
+                        name={platform.name}
+                        icon={platform.icon}
+                        key={platform.name}
+                        setLinks={setLinks}
+                        setIsLinkBoxOpen={setIsLinkBoxOpen}
+                        links={links}
+                        setLinkUrl={setLinkUrl}
+                      />
+                    ))}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            )}
-            {/* </AnimatePresence> */}
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
