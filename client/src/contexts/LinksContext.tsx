@@ -41,7 +41,9 @@ function LinksProvider({ children }: { children: React.ReactNode }) {
   }
 
   const userLinks: LinkProps[] = user?.data?.links;
+
   useEffect(() => {
+    setLinks([]);
     userLinks?.forEach((user) => {
       addLink(user.name, user.link, user.id);
     });

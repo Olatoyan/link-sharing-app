@@ -14,26 +14,24 @@ function ProfileLinksSection() {
   const { links } = useLinks();
   const { createUserLink, isCreating } = useCreateUserLink();
 
-  function saveLinksToDB() {
+  async function saveLinksToDB() {
     const userId = Cookies.get("userId");
-    links.forEach((link) => {
-      createUserLink(
-        {
+    try {
+      const promises = links.map((link) =>
+        createUserLink({
           id: link.id,
           name: link.name,
           link: link.link,
           user: userId!,
-        },
-        {
-          onSuccess: () => {
-            toast.success("Your link(s) has been saved!");
-          },
-          onError: () => {
-            toast.error("There was an error saving your link(s).");
-          },
-        },
+        }),
       );
-    });
+      await Promise.all(promises);
+      toast.success("Your link(s) have been saved!");
+    } catch (error) {
+      // Handle errors
+      console.error("Error saving links:", error);
+      toast.error("There was an error saving your link(s).");
+    }
   }
 
   if (isFetching || isPending) return <Loader />;
