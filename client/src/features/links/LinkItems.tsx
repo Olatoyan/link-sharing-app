@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { HiOutlineLink } from "react-icons/hi";
 import { PiGithubLogoFill, PiDevToLogoFill } from "react-icons/pi";
 import {
@@ -208,52 +208,52 @@ function LinkItems({
               />
             </button>
 
-            <AnimatePresence mode="wait">
-              {isLinkBoxOpen && (
+            {/* <AnimatePresence mode="wait"> */}
+            {isLinkBoxOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeInOut",
+                  type: "spring",
+                }}
+                className="absolute top-[6rem] z-[3] flex  h-[30rem] w-full flex-col gap-[1.2rem] overflow-y-scroll rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
+              >
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: "easeInOut",
-                    type: "spring",
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={{
+                    animate: {
+                      transition: { staggerChildren: 0.1 },
+                    },
+                    exit: {
+                      transition: {
+                        staggerChildren: 0.05,
+                        staggerDirection: -1,
+                      },
+                    },
                   }}
-                  className="absolute top-[6rem] z-[3] flex  h-[30rem] w-full flex-col gap-[1.2rem] overflow-y-scroll rounded-[0.8rem] border border-solid border-[#d9d9d9] bg-white p-[1.6rem] shadow-dark-sh"
+                  className="flex flex-col gap-[1.2rem]"
                 >
-                  <motion.div
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    variants={{
-                      animate: {
-                        transition: { staggerChildren: 0.1 },
-                      },
-                      exit: {
-                        transition: {
-                          staggerChildren: 0.05,
-                          staggerDirection: -1,
-                        },
-                      },
-                    }}
-                    className="flex flex-col gap-[1.2rem]"
-                  >
-                    {socialPlatforms.map((platform) => (
-                      <LinkPlatformItems
-                        index={index}
-                        name={platform.name}
-                        icon={platform.icon}
-                        key={platform.name}
-                        setLinks={setLinks}
-                        setIsLinkBoxOpen={setIsLinkBoxOpen}
-                        links={links}
-                        setLinkUrl={setLinkUrl}
-                      />
-                    ))}
-                  </motion.div>
+                  {socialPlatforms.map((platform) => (
+                    <LinkPlatformItems
+                      index={index}
+                      name={platform.name}
+                      icon={platform.icon}
+                      key={platform.name}
+                      setLinks={setLinks}
+                      setIsLinkBoxOpen={setIsLinkBoxOpen}
+                      links={links}
+                      setLinkUrl={setLinkUrl}
+                    />
+                  ))}
                 </motion.div>
-              )}
-            </AnimatePresence>
+              </motion.div>
+            )}
+            {/* </AnimatePresence> */}
           </div>
         </div>
 
