@@ -7,6 +7,7 @@ import { useLinks } from "../../contexts/LinksContext";
 import { useCreateUserLink } from "./useCreateUserLink";
 import SaveBtn from "../../ui/SaveBtn";
 import { useGetUserProfile } from "../profile/useGetUserProfile";
+import toast from "react-hot-toast";
 function ProfileLinksSection() {
   const { isFetching } = useUserLink();
   const { isPending } = useGetUserProfile();
@@ -16,12 +17,22 @@ function ProfileLinksSection() {
   function saveLinksToDB() {
     const userId = Cookies.get("userId");
     links.forEach((link) => {
-      createUserLink({
-        id: link.id,
-        name: link.name,
-        link: link.link,
-        user: userId!,
-      });
+      createUserLink(
+        {
+          id: link.id,
+          name: link.name,
+          link: link.link,
+          user: userId!,
+        },
+        {
+          onSuccess: () => {
+            toast.success("Your link(s) has been saved!");
+          },
+          onError: () => {
+            toast.error("There was an error saving your link(s).");
+          },
+        },
+      );
     });
   }
 
