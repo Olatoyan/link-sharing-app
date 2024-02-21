@@ -2,6 +2,7 @@
 const BASE_URL = "https://toyan-devlinks-api.vercel.app/devlinks-api/v1/users";
 
 import Cookies from "js-cookie";
+import { LinkProps } from "../contexts/LinksContext";
 
 export async function signUp({
   email,
@@ -135,6 +136,29 @@ export async function resetPassword({
   }
 }
 
+export async function logout() {
+  try {
+    const response = await fetch(`${BASE_URL}/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (data.status === "fail") {
+      throw new Error(data.message);
+    }
+    Cookies.remove("jwt");
+    Cookies.remove("userId");
+    Cookies.remove("userMail");
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getUsersLink() {
   const token = Cookies.get("jwt");
   try {
@@ -158,17 +182,8 @@ export async function getUsersLink() {
   }
 }
 
-export async function createUserLink({
-  id,
-  name,
-  link,
-  user,
-}: {
-  id: number;
-  name: string;
-  link: string;
-  user: string;
-}) {
+export async function createUserLink(links: LinkProps[]) {
+  console.log(links);
   const token = Cookies.get("jwt");
   try {
     const response = await fetch(`${BASE_URL}/links`, {
@@ -177,12 +192,7 @@ export async function createUserLink({
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        id,
-        name,
-        link,
-        user,
-      }),
+      body: JSON.stringify(links),
     });
 
     const data = await response.json();

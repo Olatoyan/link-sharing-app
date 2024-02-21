@@ -9,14 +9,14 @@ const userSchema = new mongoose.Schema({
     minLength: 3,
     maxLength: 20,
     trim: true,
-    validate: [validator.isAlpha, "Name must only contain letters"],
+    validate: [validator.isAlpha, "First name must only contain letters"],
   },
   lastName: {
     type: String,
     minLength: 3,
     maxLength: 20,
     trim: true,
-    validate: [validator.isAlpha, "Name must only contain letters"],
+    validate: [validator.isAlpha, "Last name must only contain letters"],
   },
   photo: String,
   email: {
@@ -45,9 +45,15 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  emailVerificationToken: String,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
+  emailVerificationToken: { type: String, select: false },
+  passwordResetToken: { type: String, select: false },
+  passwordResetExpires: { type: Date, select: false },
+  links: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Link",
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
@@ -84,7 +90,6 @@ userSchema.methods.createPasswordResetToken = function () {
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 

@@ -2,7 +2,6 @@ import ProfileCustomizeLinks from "./ProfileCustomizeLinks";
 import ProfilePhoneMockup from "../../ui/ProfilePhoneMockup";
 import { useUserLink } from "./useUserLink";
 import Loader from "../../ui/Loader";
-import Cookies from "js-cookie";
 import { useLinks } from "../../contexts/LinksContext";
 import { useCreateUserLink } from "./useCreateUserLink";
 import SaveBtn from "../../ui/SaveBtn";
@@ -14,24 +13,27 @@ function ProfileLinksSection() {
   const { links } = useLinks();
   const { createUserLink, isCreating } = useCreateUserLink();
 
-  async function saveLinksToDB() {
-    const userId = Cookies.get("userId");
-    try {
-      const promises = links.map((link) =>
-        createUserLink({
-          id: link.id,
-          name: link.name,
-          link: link.link,
-          user: userId!,
-        }),
-      );
-      await Promise.all(promises);
-      toast.success("Your link(s) have been saved!");
-    } catch (error) {
-      // Handle errors
-      console.error("Error saving links:", error);
-      toast.error("There was an error saving your link(s).");
-    }
+  function saveLinksToDB() {
+    createUserLink(links, {
+      onSuccess: () => {
+        toast.success("Link created successfully");
+      },
+    });
+    // links.map((link) =>
+    //   createUserLink(
+    //     {
+    //       id: link.id,
+    //       name: link.name,
+    //       link: link.link,
+    //       user: userId!,
+    //     },
+    // {
+    //   onSuccess: () => {
+    //     toast.success("Link created successfully");
+    //   },
+    //     },
+    //   ),
+    // );
   }
 
   if (isFetching || isPending) return <Loader />;

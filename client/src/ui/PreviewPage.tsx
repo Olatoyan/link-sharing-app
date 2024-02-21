@@ -35,7 +35,7 @@ function PreviewPage() {
   if (!offlineUser && !offlineLinks) navigate("/login");
 
   const user = offlineUser.data.user[0];
-  const links: LinkProps[] = offlineLinks.data.links;
+  const links: LinkProps[] = offlineLinks.data.links.links;
 
   return (
     <section className="relative min-h-[100dvh] mobile:bg-white">

@@ -12,8 +12,8 @@ export function useUpdateProfile() {
     onSuccess: () => {
       toast.success("Profile updated successfully");
     },
-    onError: () => {
-      toast.error("First and last name should be more than 3 characters.");
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

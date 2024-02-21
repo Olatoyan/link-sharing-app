@@ -10,12 +10,6 @@ const linkSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add a link"],
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-    select: false,
-  },
 });
 
 const Link = mongoose.model("Link", linkSchema);
