@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 export function useLogout() {
   const navigate = useNavigate();
-  const { mutate: logout } = useMutation({
+  const { mutate: logout, isPending: isLogoutPending } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
       toast.success("Logged out successfully");
       navigate("/login");
     },
   });
-  return { logout };
+  return { logout, isLogoutPending };
 }

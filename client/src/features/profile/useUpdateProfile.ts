@@ -17,5 +17,7 @@ export function useUpdateProfile() {
     },
   });
 
+  console.log(isUpdating);
+
   return { updateProfile, isUpdating };
 }

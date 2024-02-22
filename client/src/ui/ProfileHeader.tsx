@@ -5,8 +5,21 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Logout from "./Logout";
 import Cookies from "js-cookie";
+import { useUserLink } from "../features/links/useUserLink";
+import { useGetUserProfile } from "../features/profile/useGetUserProfile";
+import { useCreateUserLink } from "../features/links/useCreateUserLink";
+import { useUpdateProfile } from "../features/profile/useUpdateProfile";
+import { useLogout } from "./useLogout";
+import TransparentLoader from "./TransparentLoader";
 
 function ProfileHeader() {
+  const { isFetching } = useUserLink();
+  const { isPending } = useGetUserProfile();
+  const { isCreating } = useCreateUserLink();
+
+  const { isUpdating } = useUpdateProfile();
+  const { isLogoutPending } = useLogout();
+
   const location = useLocation();
 
   const [pathname, setPathname] = useState(location.pathname);
@@ -17,7 +30,7 @@ function ProfileHeader() {
   }, [location.pathname]);
 
   return (
-    <header className="flex items-center justify-between bg-white px-[2.4rem] py-[2.4rem]">
+    <header className="relative flex items-center justify-between bg-white px-[2.4rem] py-[2.4rem]">
       <Logo />
 
       <div className="flex items-center gap-[1.6rem] tablet:gap-4">
@@ -51,6 +64,12 @@ function ProfileHeader() {
           <span className="mobile:hidden">Preview</span>
         </Link>
       </div>
+
+      {(isFetching ||
+        isCreating ||
+        isUpdating ||
+        isPending ||
+        isLogoutPending) && <TransparentLoader />}
     </header>
   );
 }

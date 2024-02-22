@@ -7,6 +7,10 @@ import { useForm } from "react-hook-form";
 import { useUserContext } from "../../contexts/UserProfileContext";
 import { useUpdateProfile } from "./useUpdateProfile";
 import { useGetUserProfile } from "./useGetUserProfile";
+import { useCreateUserLink } from "../links/useCreateUserLink";
+import { useLogout } from "../../ui/useLogout";
+import TransparentLoader from "../../ui/TransparentLoader";
+import ProfileHeader from "../../ui/ProfileHeader";
 
 type FormData = {
   firstName: string;
@@ -16,12 +20,16 @@ type FormData = {
 function ProfileDetailsSection() {
   const { isFetching } = useUserLink();
   const { isPending } = useGetUserProfile();
+  const { isCreating } = useCreateUserLink();
+
+  const { updateProfile, isUpdating } = useUpdateProfile();
+
+  const { isLogoutPending } = useLogout();
   const { register, handleSubmit, formState } = useForm<FormData>();
 
   const { errors } = formState;
 
   const { updateFirstName, updateLastName, photo } = useUserContext();
-  const { updateProfile, isUpdating } = useUpdateProfile();
 
   function onSubmitData(data: FormData): void {
     updateProfile(
@@ -42,18 +50,26 @@ function ProfileDetailsSection() {
   if (isFetching || isPending) return <Loader />;
 
   return (
-    <section className="tablet:grid-cols-1 tablet:pt-0 grid grid-cols-2 gap-8 pt-16">
-      <ProfilePhoneMockup />
-      <ProfileDetails
-        register={register}
-        errors={errors}
-        handleSubmit={handleSubmit}
-        isUpdating={isUpdating}
-        onSubmitData={onSubmitData}
-      />
+    <main className="relative">
+      <ProfileHeader />
+      <section className="grid grid-cols-2 gap-8 pt-16 tablet:grid-cols-1 tablet:pt-0">
+        <ProfilePhoneMockup />
+        <ProfileDetails
+          register={register}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          isUpdating={isUpdating}
+          onSubmitData={onSubmitData}
+        />
 
-      <SaveBtn disabled={false} onSave={handleSubmit(onSubmitData)} />
-    </section>
+        <SaveBtn disabled={false} onSave={handleSubmit(onSubmitData)} />
+        {(isFetching ||
+          isCreating ||
+          isUpdating ||
+          isPending ||
+          isLogoutPending) && <TransparentLoader />}
+      </section>
+    </main>
   );
 }
 
