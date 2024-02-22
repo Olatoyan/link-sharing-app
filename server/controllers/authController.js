@@ -262,6 +262,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 exports.logout = catchAsync(async (req, res, next) => {
   req.user = null;
+  res.clearCookie("jwt");
   res.status(200).json({
     status: "success",
     message: "Successfully logged out.",
